@@ -2,6 +2,7 @@ import { PageFrame, PageFrameProps } from "../frames/types"
 import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
+import { KeirbeGrowth } from "./Growth"
 import { KeirbeNav, NAV_SCRIPT } from "./Nav"
 import { KeirbeToc, TOC_SCRIPT } from "./Toc"
 
@@ -155,6 +156,7 @@ export const KeirbeFrame: PageFrame = {
               {beforeBody.map((BodyComponent) => (
                 <BodyComponent {...componentData} />
               ))}
+              <KeirbeGrowth fileData={componentData.fileData} allFiles={componentData.allFiles} />
             </div>
           </div>
           <Content {...componentData} />

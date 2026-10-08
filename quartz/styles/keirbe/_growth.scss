@@ -1,0 +1,50 @@
+// keir.be growth row (quartz/components/keirbe/Growth.tsx): the garden's scale at the end
+// of a note's date line, the note's own stage in olive and the rest faint.
+@use "../variables.scss" as *;
+
+.page[data-frame="keirbe"] .page-header > .popover-hint {
+  position: relative;
+
+  // Keep the date line's text clear of the icons
+  &:has(> .kb-growth) > .content-meta {
+    padding-right: 6.5rem;
+  }
+}
+
+.kb-growth {
+  // Same line as the date and reading time, which is always the header's last line
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 1.6rem; // the date line's height
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+// No date line on this page: the row simply follows the header
+.page-header > .popover-hint:not(:has(> .content-meta)) > .kb-growth {
+  position: static;
+  margin-top: 0.75rem;
+}
+
+.kb-growth-icon {
+  display: inline-flex;
+  color: var(--kb-muted);
+  opacity: 0.35;
+  background: none;
+  transition: opacity 0.15s ease;
+
+  &.lit {
+    color: var(--kb-accent-strong);
+    opacity: 1;
+  }
+
+  & svg {
+    display: block;
+  }
+}
+
+a.kb-growth-icon:not(.lit):hover {
+  opacity: 0.75;
+}
