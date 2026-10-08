@@ -12,7 +12,7 @@ The idea that there's more to us than the everyday self, and that it can be expl
 
 **Orin and DaBen.** Guides channelled by Sanaya Roman and Duane Packer. Their light body work, built around guided audio journeys, is the practice I've gone deepest into. Their 6 part foundation [[Awakening Your Light Body]] course is something I have recently begun sponsoring people along.
 
-**Alice A. Bailey.** Dense, demanding books on the inner side of life. Slow reading, best taken a few pages at a time. I've built myself a searchable study library of her books so I can follow ideas across them.
+**[[The 24 books of Esoteric Philosophy|Alice A. Bailey]].** Dense, demanding books on the inner side of life. Slow reading, best taken a few pages at a time. I've built myself a searchable study library of her books so I can follow ideas across them.
 
 %% Others who have shaped you? Books, teachers, traditions. %%
 

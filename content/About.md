@@ -7,16 +7,16 @@ nav-bar: true
 
 ## Who I am
 
-I'm Leon Keir. I have a messy, wonderfully non-linear brain. It makes connections easily, and forgets where it put them just as easily. Most of what I do is an attempt to work with that rather than against it: I keep things tidy on the outside so the inside is free to wander.
+I'm Leon Keir. I have a messy, wonderfully non-linear brain. It makes connections easily, and forgets where it put them just as readily. Most of what I do is an effort to work with that rather than against it: Attempting to keep things tidy on the outside so the inside is free to digress.
 
-I'm drawn to diverse subjects. From developing functional strength to esoteric teachings, to building things myself, and to the strange new business of working alongside AI. On paper these look like totally separate hobbies. In my mind they're one long conversation, and this garden is where I'm mapping that out. At least in part.
-%% 
+I'm drawn to diverse subjects. From  functional strength to esoteric teachings, from building things myself to the strange new business of working alongside AI. On paper these look like totally separate hobbies. In my mind they're one long conversation, and this garden is where I'm mapping that out. At least in part.
+
 ## The name
 
 You're at keir.be. Look again and it reads keir.be*nson*.
 
-The name I went by in a previous life. If you knew me then: hello.
-
+My name from a previous life. If you knew me then: hello 👋.
+%% 
 Once there's a way to reach you (see the comment at the bottom), add an invitation here, e.g. "I'd love to hear from you." %%
 
 ## Why a digital garden

@@ -25,5 +25,5 @@ The course is by invitation. Once you're invited, sign in with your email addres
 
 ## Related
 
-- [[Esoteric studies]]
+- [[Topics/Esoteric studies/index|Esoteric studies]]
 - [[Self-hosting and the home lab]]: how the course is served

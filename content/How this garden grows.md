@@ -4,7 +4,7 @@ tags:
   - sapling
 ---
 
-Nothing here is finished, and that's on purpose.
+Nothing here is finished, and i'd like to say that intentional. It's not, it's how it is.
 
 Every note sits somewhere on a scale: 🌰 🌱 🌿 🌳. At one end, a thought just dropped. At the other, something that's put down roots. Most of the garden is somewhere in between, and notes move along as I tend them. 
 
