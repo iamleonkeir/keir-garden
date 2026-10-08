@@ -19,9 +19,9 @@ import { FullSlug, resolveRelative } from "../../util/path"
 
 const SCALE = ["seed", "sprout", "sapling", "tree"] as const
 const OFF_SCALE = ["houseplant", "evergreen"] as const
-type Stage = (typeof SCALE)[number] | (typeof OFF_SCALE)[number]
+export type Stage = (typeof SCALE)[number] | (typeof OFF_SCALE)[number]
 
-const SHAPES: Record<Stage, string[]> = {
+export const SHAPES: Record<Stage, string[]> = {
   // An acorn: stalk, cap, nut
   seed: [
     "M12 4.75c0-1.25.75-2.25 2-2.75",

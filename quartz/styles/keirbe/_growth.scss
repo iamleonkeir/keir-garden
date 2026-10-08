@@ -48,3 +48,16 @@
 a.kb-growth-icon:not(.lit):hover {
   opacity: 0.75;
 }
+
+// The growth emoji in a note's text, drawn as the same icons (growthEmoji.ts)
+.kb-growth-inline {
+  display: inline-block;
+  vertical-align: -0.2em;
+  color: var(--kb-accent-strong);
+
+  & svg {
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+  }
+}
