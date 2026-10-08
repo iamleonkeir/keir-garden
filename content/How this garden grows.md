@@ -3,8 +3,8 @@ title: How this garden grows
 tags:
   - sapling
 ---
-
-Nothing here is finished, and i'd like to say that intentional. It's not, it's how it is.
+	
+Nothing here is finished, and i'd like to say that's intentional. It's not, it's how it is.
 
 Every note sits somewhere on a scale: 🌰 🌱 🌿 🌳. At one end, a thought just dropped. At the other, something that's put down roots. Most of the garden is somewhere in between, and notes move along as I tend them. 
 
@@ -23,4 +23,4 @@ There's no right order to read things in. A few ways to wander:
 - **Backlinks** show which notes point to the one you're reading. Often the most interesting way in.
 - **Tags:** click a note's tag (seed, sprout, sapling, tree, houseplant or evergreen) to see everything else like it.
 
-%% Tag key for the scale: seed = 🌰, sprout = 🌱, sapling = 🌿, tree = 🌳, plus houseplant = 🪴 and evergreen = 🌲. The icons get shown properly at the styling stage. %%
+%% Tag key for the scale: seed = 🌰, sprout = 🌱, sapling = 🌿, tree = 🌳, plus houseplant = 🪴 and evergreen = 🌲. On the site these emoji are drawn as the garden's own icons, with 🌰 as an acorn. %%
