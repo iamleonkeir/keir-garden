@@ -172,11 +172,8 @@ plugins:
   - source: "@quartz-community/search"
     enabled: true
     layout:
-      position: left
+      position: header # keir.be frame: 2nd header component = centre of the top bar
       priority: 20
-      group: toolbar
-      groupOptions:
-        grow: true
   - source: "@quartz-community/backlinks"
     enabled: true
     layout:
@@ -200,20 +197,18 @@ plugins:
   - source: "@quartz-community/page-title"
     enabled: true
     layout:
-      position: left
+      position: header # keir.be frame: 1st header component = left of the top bar
       priority: 10
   - source: "@quartz-community/darkmode"
     enabled: true
     layout:
-      position: left
+      position: header # keir.be frame: further header components = right of the top bar
       priority: 30
-      group: toolbar
   - source: "@quartz-community/reader-mode"
     enabled: true
     layout:
-      position: left
+      position: header
       priority: 35
-      group: toolbar
   - source: "@quartz-community/breadcrumbs"
     enabled: true
     layout:
@@ -238,7 +233,7 @@ plugins:
   - source: "@quartz-community/recent-notes"
     enabled: false
   - source: "@quartz-community/spacer"
-    enabled: true
+    enabled: false # was the mobile spacer for the left-column toolbar, now in the header
     options: {}
     order: 25
     layout:
@@ -267,27 +262,26 @@ plugins:
       priority: 15
       display: all
 layout:
-  groups:
-    toolbar:
-      priority: 35
-      direction: row
-      gap: 0.5rem
   byPageType:
     "404":
       positions:
         beforeBody: []
         left: []
         right: []
-    content: {}
+    content:
+      template: keirbe # keir.be frame (two-tone header), registered in quartz.ts
     folder:
+      template: keirbe
       exclude:
         - reader-mode
       positions:
         right: []
     tag:
+      template: keirbe
       exclude:
         - reader-mode
       positions:
         right: []
     canvas: {}
-    bases: {}
+    bases:
+      template: keirbe
