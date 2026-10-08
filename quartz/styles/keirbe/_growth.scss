@@ -68,3 +68,16 @@ li:has(> a.tag-link[href*="tags/growth/"]),
 a.tag-link[href*="tags/growth/"] {
   display: none;
 }
+
+// Stage pages (/tags/growth/<stage>): the stage's icon before its name (KeirbeFrame)
+.page-header[data-growth-stage] .article-title::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-right: 0.3em;
+  vertical-align: -0.1em;
+  background-color: var(--kb-accent-strong);
+  -webkit-mask: var(--kb-stage-icon) center / contain no-repeat;
+  mask: var(--kb-stage-icon) center / contain no-repeat;
+}

@@ -4,7 +4,7 @@ import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
 import { AcornMark } from "./Acorn"
-import { KeirbeGrowth } from "./Growth"
+import { KeirbeGrowth, SHAPES, Stage } from "./Growth"
 import { withGrowthIcons } from "./growthEmoji"
 import { KeirbeNav, NAV_SCRIPT } from "./Nav"
 import { KeirbeToc, TOC_SCRIPT } from "./Toc"
@@ -85,6 +85,26 @@ function buildTabs(allFiles: QuartzPluginData[]): { sections: Tab[]; pages: Tab[
   return { sections: sections.sort(byTitle), pages: pages.sort(byTitle) }
 }
 
+// Stage pages (/tags/growth/<stage>, from the hidden stage tags quartz.ts adds) would be
+// headed "growth/seedling". They get the stage's name, and its icon (drawn by CSS from
+// this data URI, so the shapes stay in Growth.tsx). The title is set here, before the page
+// is written out, so the browser tab reads "Seedling" too.
+function stageHeading(slug: string, fileData: QuartzPluginData): string | undefined {
+  const match = slug.match(/^tags\/growth(?:\/([a-z]+))?$/)
+  if (!match) return undefined
+  const frontmatter = (fileData.frontmatter ??= { title: "" }) as { title: string }
+  const stage = match[1] as Stage | undefined
+  if (!stage) {
+    frontmatter.title = "Growth"
+    return undefined
+  }
+  if (!(stage in SHAPES)) return undefined
+  frontmatter.title = stage.charAt(0).toUpperCase() + stage.slice(1)
+  const paths = SHAPES[stage].map((d) => `<path d='${d}'/>`).join("")
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>${paths}</svg>`
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`
+}
+
 export const KeirbeFrame: PageFrame = {
   name: "keirbe",
   render({
@@ -101,6 +121,7 @@ export const KeirbeFrame: PageFrame = {
     const { sections, pages } = buildTabs(componentData.allFiles)
     const [Centre, ...Actions] = header
     const showContactForm = componentData.fileData.frontmatter?.["contact-form"] === true
+    const stageIcon = stageHeading(slug, componentData.fileData)
     // Only ever seen on the local preview: keir.be's build leaves drafts out
     const draft = componentData.fileData.frontmatter?.draft
     const isDraft = draft === true || draft === "true"
@@ -160,7 +181,11 @@ export const KeirbeFrame: PageFrame = {
           ))}
         </div>
         <div class="center">
-          <div class="page-header">
+          <div
+            class="page-header"
+            data-growth-stage={stageIcon ? "" : undefined}
+            style={stageIcon ? `--kb-stage-icon: ${stageIcon}` : undefined}
+          >
             {isDraft && <p class="kb-draft-note">Draft: on your preview only, not on keir.be</p>}
             <div class="popover-hint">
               {beforeBody.map((BodyComponent) => (
