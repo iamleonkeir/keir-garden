@@ -2,6 +2,7 @@ import { PageFrame, PageFrameProps } from "../frames/types"
 import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
+import { KeirbeNav, NAV_SCRIPT } from "./Nav"
 
 /**
  * keir.be page frame, modelled on Mintlify "Sequoia".
@@ -125,11 +126,19 @@ export const KeirbeFrame: PageFrame = {
             </div>
           </div>
           <nav class="kb-bar kb-tabs" aria-label="Sections">
+            <button class="kb-nav-button" type="button" aria-label="Menu" aria-expanded="false">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="17" x2="20" y2="17" />
+              </svg>
+            </button>
             <div class="kb-tabs-group">{sections.map(renderTab)}</div>
             <div class="kb-tabs-group">{pages.map(renderTab)}</div>
           </nav>
         </header>
         <div class="left sidebar">
+          <KeirbeNav allFiles={componentData.allFiles} slug={slug} />
           {left.map((BodyComponent) => (
             <BodyComponent {...componentData} />
           ))}
@@ -159,6 +168,7 @@ export const KeirbeFrame: PageFrame = {
         {footer.map((FooterComponent) => (
           <FooterComponent {...componentData} />
         ))}
+        <script dangerouslySetInnerHTML={{ __html: NAV_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: CONTACT_FORM_SCRIPT }} />
       </>
     )

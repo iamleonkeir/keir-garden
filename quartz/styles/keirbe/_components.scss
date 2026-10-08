@@ -60,11 +60,10 @@ a.tag-link,
 
 // ---------- Sidebars: Sequoia-style small type ----------
 .sidebar {
-  // Section titles: Graph View, Table of Contents, Backlinks, Explorer
+  // Section titles: Graph View, Table of Contents, Backlinks
   & .graph > h3,
   & .toc-header h3,
-  & .backlinks > h3,
-  & .title-button h2 {
+  & .backlinks > h3 {
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
@@ -73,15 +72,12 @@ a.tag-link,
     margin: 0;
   }
 
-  & .explorer-content,
   & .toc-content,
   & .backlinks ul {
     font-size: 0.875rem;
     line-height: 1.25rem;
   }
 
-  & .explorer-content a,
-  & .explorer-content .folder-title,
   & .backlinks a {
     color: var(--darkgray);
     font-weight: 400;
@@ -92,7 +88,6 @@ a.tag-link,
     }
   }
 
-  & .explorer-content li,
   & .backlinks li {
     margin: 0.375rem 0;
   }

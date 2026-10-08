@@ -160,7 +160,7 @@ plugins:
   - source: "@quartz-community/tag-page"
     enabled: true
   - source: "@quartz-community/explorer"
-    enabled: true
+    enabled: false # replaced by the keir.be frame's own menu (quartz/components/keirbe/Nav.tsx)
     layout:
       position: left
       priority: 50

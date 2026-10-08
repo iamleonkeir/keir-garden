@@ -1,0 +1,132 @@
+// keir.be left-hand menu (quartz/components/keirbe/Nav.tsx), Sequoia style:
+// small uppercase group headings, 14px items, the current page in olive.
+@use "../variables.scss" as *;
+
+.kb-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  width: 100%;
+
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  & li {
+    margin: 0;
+  }
+}
+
+.kb-nav-heading {
+  display: block;
+  margin: 0 0 0.5rem;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dark);
+  background: none;
+
+  &:is(a):hover {
+    color: var(--kb-accent-strong);
+  }
+
+  &.active {
+    color: var(--kb-accent-strong);
+  }
+}
+
+.kb-nav-item,
+.kb-nav-subheading {
+  display: block;
+  padding: 0.375rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: var(--darkgray);
+  background: none;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease;
+
+  &:is(a):hover {
+    color: var(--dark);
+    background: var(--kb-surface);
+  }
+
+  &.active {
+    color: var(--kb-accent-strong);
+    font-weight: 500;
+  }
+}
+
+// Subfolders: a quieter heading with its pages indented beneath
+.kb-nav-sub {
+  margin-top: 0.75rem;
+
+  & > .kb-nav-subheading {
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  & > ul {
+    margin-left: 0.75rem;
+    padding-left: 0.5rem;
+    border-left: 1px solid var(--kb-border);
+  }
+}
+
+// ---------- Menu button (phones only) ----------
+.kb-nav-button {
+  display: none;
+}
+
+@media all and ($mobile) {
+  .kb-nav-button {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    margin-left: -0.375rem;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: none;
+    color: var(--darkgray);
+    cursor: pointer;
+  }
+
+  // The menu is hidden on phones until the button opens it as a full-height panel
+  .page[data-frame="keirbe"] > #quartz-body > .sidebar.left {
+    display: none;
+  }
+
+  html.kb-nav-open {
+    overflow: hidden;
+
+    & .page[data-frame="keirbe"] > #quartz-body > .sidebar.left {
+      display: block;
+      position: fixed;
+      top: 96px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 25;
+      overflow-y: auto;
+      height: auto;
+      padding: 1.25rem 1rem 2rem;
+      background: var(--light);
+    }
+
+    & .kb-nav-button {
+      color: var(--dark);
+      background: var(--kb-border);
+    }
+  }
+}
