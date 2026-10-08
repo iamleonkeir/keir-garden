@@ -112,26 +112,26 @@ article {
     margin: 1.5rem 0 0.5rem;
   }
 
-  // ---------- Links: dark text, thin olive underline (Sequoia) ----------
+  // ---------- Links: quiet. The text's own weight and colour, a fine olive underline ----------
+  // (Sequoia sets links in bold; Parzifal found that too busy on a page full of links.)
   a:not([role="anchor"]):not(.tag-link):not(:has(> img)) {
-    color: var(--dark);
-    font-weight: 600;
+    color: inherit;
+    font-weight: inherit;
     background-color: transparent;
     padding: 0;
     border-radius: 0;
     line-height: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--kb-accent);
+    text-decoration-color: color-mix(in srgb, var(--kb-accent) 55%, transparent);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.25em;
     transition:
-      text-decoration-color 0.15s ease,
-      text-decoration-thickness 0.15s ease;
+      color 0.15s ease,
+      text-decoration-color 0.15s ease;
 
     &:hover {
-      color: var(--dark);
+      color: var(--kb-accent-strong);
       text-decoration-color: var(--kb-accent-strong);
-      text-decoration-thickness: 2px;
     }
 
     &.broken {
