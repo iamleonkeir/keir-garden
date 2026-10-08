@@ -5,11 +5,12 @@ import { FullSlug, resolveRelative } from "../../util/path"
  * keir.be growth row: where a note sits on the garden's scale, drawn at the end of its
  * date line by KeirbeFrame (styles: quartz/styles/keirbe/_growth.scss).
  *
- *  - The stage comes from the note's tags: seed 🌰 → seedling 🌱 → sapling 🌿 → tree 🌳.
+ *  - The stage is the note's `growth` property: seed 🌰 → seedling 🌱 → sapling 🌿 → tree 🌳.
  *    The whole scale is shown, with the note's own stage lit.
  *  - Off the scale, a houseplant 🪴 or evergreen 🌲 note shows just its own icon.
  *  - Notes without a stage (Contact, folder lists) show nothing.
- *  - Each icon links to its tag page (every note at that stage) once some note has it.
+ *  - Each icon links to its stage's page (every note at that stage) once some note has it:
+ *    the hidden tag growth/<stage> that quartz.ts adds.
  * The scale is explained on the garden's page "How this garden grows".
  *
  * Icons drawn for keir.be in the style of the header icons: a 24px grid, 1.5 stroke,
@@ -80,10 +81,8 @@ function Icon({ stage }: { stage: Stage }) {
   )
 }
 
-const tagsOf = (file: QuartzPluginData): string[] => {
-  const tags = file.frontmatter?.tags
-  return Array.isArray(tags) ? tags.map(String) : []
-}
+const growthOf = (file: QuartzPluginData): string =>
+  String(file.frontmatter?.growth ?? "").trim().toLowerCase()
 
 export function KeirbeGrowth({
   fileData,
@@ -92,12 +91,12 @@ export function KeirbeGrowth({
   fileData: QuartzPluginData
   allFiles: QuartzPluginData[]
 }) {
-  const tags = tagsOf(fileData)
-  const stage = ([...SCALE, ...OFF_SCALE] as Stage[]).find((s) => tags.includes(s))
+  const growth = growthOf(fileData)
+  const stage = ([...SCALE, ...OFF_SCALE] as Stage[]).find((s) => s === growth)
   if (!stage) return null
 
   const slug = fileData.slug as FullSlug
-  const hasPage = (s: Stage) => allFiles.some((file) => tagsOf(file).includes(s))
+  const hasPage = (s: Stage) => allFiles.some((file) => growthOf(file) === s)
   const row: Stage[] = (OFF_SCALE as readonly Stage[]).includes(stage) ? [stage] : [...SCALE]
 
   return (
@@ -108,7 +107,7 @@ export function KeirbeGrowth({
         return hasPage(s) ? (
           <a
             class={cls}
-            href={resolveRelative(slug, `tags/${s}` as FullSlug)}
+            href={resolveRelative(slug, `tags/growth/${s}` as FullSlug)}
             title={s}
             aria-label={s}
             aria-current={lit ? "true" : undefined}

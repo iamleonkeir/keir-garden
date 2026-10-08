@@ -61,3 +61,10 @@ a.kb-growth-icon:not(.lit):hover {
     height: 1.2em;
   }
 }
+
+// The hidden growth/<stage> tags (quartz.ts) never show as chips, e.g. in folder lists
+// (the whole list item goes, so its bullet doesn't linger)
+li:has(> a.tag-link[href*="tags/growth/"]),
+a.tag-link[href*="tags/growth/"] {
+  display: none;
+}

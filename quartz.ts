@@ -28,6 +28,30 @@ const folderTitles: QuartzTransformerPluginInstance = {
 }
 config.plugins.transformers.push(folderTitles)
 
+// keir.be: a note's growth stage is its own property (`growth: seedling`, one value), and
+// tags are for topics. So every stage still gets a page listing its notes, the site also
+// files each note under a hidden tag, growth/<stage>. A new tags list is assigned, so the
+// Properties box (which keeps its own copy) never shows it; the graph and the note lists
+// leave these tags out too (quartz.config.yaml, _growth.scss).
+const STAGES = ["seed", "seedling", "sapling", "tree", "houseplant", "evergreen"]
+const growthTags: QuartzTransformerPluginInstance = {
+  name: "KeirbeGrowthTags",
+  markdownPlugins: () => [
+    () => (_tree: unknown, file: { data: Record<string, any> }) => {
+      // An empty tags list shows nothing, rather than an empty row in Properties
+      const shown = file.data.noteProperties?.properties
+      if (shown && Array.isArray(shown.tags) && shown.tags.length === 0) delete shown.tags
+
+      const frontmatter = file.data.frontmatter
+      const stage = String(frontmatter?.growth ?? "").trim().toLowerCase()
+      if (!STAGES.includes(stage)) return
+      const tags = Array.isArray(frontmatter.tags) ? frontmatter.tags : []
+      frontmatter.tags = [...tags, `growth/${stage}`]
+    },
+  ],
+}
+config.plugins.transformers.push(growthTags)
+
 // keir.be: notes with the draft box ticked never reach keir.be (the RemoveDrafts filter),
 // but the local preview shows them when started with KB_SHOW_DRAFTS=1. Cloudflare's
 // build never sets it, so drafts stay off the live site.

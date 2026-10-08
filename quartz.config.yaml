@@ -11,6 +11,8 @@ configuration:
     - private
     - templates
     - Templates # the garden vault's Obsidian templates (matching is case-sensitive)
+    - Templates/** # …and its files, for the preview's watcher (it matches file by file)
+    - private/**
     - .obsidian
   theme:
     # keir.be design (modelled on Mintlify "Sequoia"). Fonts are self-hosted:
@@ -167,6 +169,12 @@ plugins:
       priority: 50
   - source: "@quartz-community/graph"
     enabled: true
+    options:
+      # the hidden growth/<stage> tags (added in quartz.ts) stay out of the graph
+      localGraph:
+        removeTags: [growth/seed, growth/seedling, growth/sapling, growth/tree, growth/houseplant, growth/evergreen]
+      globalGraph:
+        removeTags: [growth/seed, growth/seedling, growth/sapling, growth/tree, growth/houseplant, growth/evergreen]
     layout:
       position: right
       priority: 10
