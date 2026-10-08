@@ -1,5 +1,6 @@
 ---
 title: Topics
+nav-bar: true
 ---
 
 The things I keep coming back to. They look unrelated: spiritual teachings, servers, AI, note-taking. For me they're one subject seen from different sides, facets of a single diamond: how a mind grows, how consciousness expands, and what aids it. 

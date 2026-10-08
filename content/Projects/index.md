@@ -1,5 +1,6 @@
 ---
 title: Projects
+nav-bar: true
 ---
 
 Things I build. They all live under one name: **graalofi**.

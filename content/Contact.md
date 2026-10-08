@@ -1,6 +1,7 @@
 ---
 title: Contact
 contact-form: true
+nav-bar: true
 ---
 
 Something to say, a question about the course, or an old connection to pick up? Leave a message here and it comes straight to me.

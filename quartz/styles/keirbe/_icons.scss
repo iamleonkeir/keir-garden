@@ -1,0 +1,72 @@
+// keir.be header icons: thin outline icons for the dark-mode and reader-mode buttons
+// (shapes from Lucide, lucide.dev, ISC licence). The plugins draw solid icons that
+// CSS can't make thinner, so theirs are hidden and ours are painted over the same
+// buttons. The buttons and what they do stay the plugins' own.
+@use "sass:string";
+
+$kb-icon-size: 20px; // the plugins' own icon size
+
+// Light: a sun. Dark: a moon. Reader mode: an open book.
+$kb-sun: "<circle cx='12' cy='12' r='4'/><path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41'/>";
+$kb-moon: "<path d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z'/>";
+$kb-book: "<path d='M12 7v14'/><path d='M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z'/>";
+
+@function kb-replace($text, $find, $with) {
+  $at: string.index($text, $find);
+  @if not $at {
+    @return $text;
+  }
+  @return string.slice($text, 1, $at - 1) + $with +
+    kb-replace(string.slice($text, $at + string.length($find)), $find, $with);
+}
+
+// The shapes as an inline SVG for a CSS mask: 24px grid, 1.5 stroke (1.25px at 20px)
+@function kb-icon($shapes) {
+  $svg: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'>#{$shapes}</svg>";
+  $svg: kb-replace($svg, "<", "%3C");
+  $svg: kb-replace($svg, ">", "%3E");
+  $svg: kb-replace($svg, "#", "%23");
+  @return url("data:image/svg+xml,#{$svg}");
+}
+
+.kb-bar-right {
+  & .darkmode,
+  & .readermode {
+    color: var(--darkgray);
+    transition: color 0.15s ease;
+
+    & > svg {
+      display: none;
+    }
+
+    // Centred in the plugin's button (position: relative), so its size and
+    // display (hidden on phones for reader mode) are left as they are
+    &::before {
+      content: "";
+      position: absolute;
+      top: calc(50% - #{$kb-icon-size} / 2);
+      left: calc(50% - #{$kb-icon-size} / 2);
+      width: $kb-icon-size;
+      height: $kb-icon-size;
+      background-color: currentColor;
+      -webkit-mask: var(--kb-icon) center / contain no-repeat;
+      mask: var(--kb-icon) center / contain no-repeat;
+    }
+
+    &:hover {
+      color: var(--dark);
+    }
+  }
+
+  & .darkmode {
+    --kb-icon: #{kb-icon($kb-sun)};
+  }
+
+  & .readermode {
+    --kb-icon: #{kb-icon($kb-book)};
+  }
+}
+
+:root[saved-theme="dark"] .kb-bar-right .darkmode {
+  --kb-icon: #{kb-icon($kb-moon)};
+}

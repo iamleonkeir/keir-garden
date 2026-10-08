@@ -2,6 +2,7 @@
 title: About
 tags:
   - sapling
+nav-bar: true
 ---
 
 ## Who I am

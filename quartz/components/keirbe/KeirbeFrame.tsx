@@ -13,9 +13,10 @@ import { KeirbeToc, TOC_SCRIPT } from "./Toc"
  *    lighter shade, so it reads keir.benson). Then the `header` layout slot from
  *    quartz.config.yaml: its first component sits in the centre (search), the rest on
  *    the right (mode toggles), followed by the sign-in button at the far right.
- *  - Tab bar: the vault's top-level folders as tabs on the left, its standalone
- *    root-level pages on the right. Worked out from the content, so a new folder
- *    becomes a tab by itself. The current section is marked.
+ *  - Tab bar: the pages whose `nav-bar` box is ticked (a checkbox property in
+ *    Obsidian). A ticked folder page (the folder's index.md) is a section tab on the
+ *    left, marked anywhere in that folder; other ticked pages sit on the right,
+ *    marked on that page. Each group is in alphabetical order.
  *
  * Registered in quartz.ts (no edits to Quartz's own files) and selected per page
  * type with `layout.byPageType.<type>.template: keirbe`.
@@ -30,10 +31,14 @@ const SIGN_IN = {
   href: "https://learn.keir.be/learn/",
 }
 
+// The frontmatter checkbox that puts a page in the tab bar
+const TAB_PROPERTY = "nav-bar"
+
 interface Tab {
-  key: string
+  key: string // a folder path (section tabs) or a page slug
   title: string
   slug: FullSlug
+  folder: boolean
 }
 
 const byTitle = (a: Tab, b: Tab) =>
@@ -45,34 +50,35 @@ function fallbackTitle(segment: string): string {
 }
 
 function buildTabs(allFiles: QuartzPluginData[]): { sections: Tab[]; pages: Tab[] } {
-  const sections = new Map<string, Tab>()
+  const sections: Tab[] = []
   const pages: Tab[] = []
 
   for (const file of allFiles) {
     const slug = file.slug
-    if (!slug || (file as { unlisted?: boolean }).unlisted) continue
+    if (!slug || file.frontmatter?.[TAB_PROPERTY] !== true) continue
+    if ((file as { unlisted?: boolean }).unlisted) continue
+    if (slug === "index" || slug === "404" || slug.startsWith("tags/")) continue
 
     const parts = slug.split("/")
-    if (parts.length === 1) {
-      if (slug === "index" || slug === "404") continue
-      pages.push({ key: slug, title: file.frontmatter?.title ?? fallbackTitle(slug), slug })
-      continue
-    }
-
-    const top = parts[0]
-    if (top === "tags") continue
-    const isFolderIndex = parts.length === 2 && parts[1] === "index"
-    const known = sections.get(top)
-    if (!known || isFolderIndex) {
-      const title =
-        isFolderIndex && file.frontmatter?.title
-          ? file.frontmatter.title
-          : (known?.title ?? fallbackTitle(top))
-      sections.set(top, { key: top, title, slug: `${top}/index` as FullSlug })
+    const last = parts[parts.length - 1]
+    if (last === "index") {
+      sections.push({
+        key: parts.slice(0, -1).join("/"),
+        title: file.frontmatter?.title ?? fallbackTitle(parts[parts.length - 2]),
+        slug: slug as FullSlug,
+        folder: true,
+      })
+    } else {
+      pages.push({
+        key: slug,
+        title: file.frontmatter?.title ?? fallbackTitle(last),
+        slug: slug as FullSlug,
+        folder: false,
+      })
     }
   }
 
-  return { sections: [...sections.values()].sort(byTitle), pages: pages.sort(byTitle) }
+  return { sections: sections.sort(byTitle), pages: pages.sort(byTitle) }
 }
 
 export const KeirbeFrame: PageFrame = {
@@ -88,13 +94,12 @@ export const KeirbeFrame: PageFrame = {
     footer,
   }: PageFrameProps) {
     const slug = componentData.fileData.slug as FullSlug
-    const current = slug.includes("/") ? slug.split("/")[0] : slug
     const { sections, pages } = buildTabs(componentData.allFiles)
     const [Centre, ...Actions] = header
     const showContactForm = componentData.fileData.frontmatter?.["contact-form"] === true
 
     const renderTab = (tab: Tab) => {
-      const active = tab.key === current
+      const active = tab.folder ? slug.startsWith(tab.key + "/") : slug === tab.slug
       return (
         <a
           href={resolveRelative(slug, tab.slug)}
@@ -128,7 +133,7 @@ export const KeirbeFrame: PageFrame = {
           </div>
           <nav class="kb-bar kb-tabs" aria-label="Sections">
             <button class="kb-nav-button" type="button" aria-label="Menu" aria-expanded="false">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
                 <line x1="4" y1="7" x2="20" y2="7" />
                 <line x1="4" y1="12" x2="20" y2="12" />
                 <line x1="4" y1="17" x2="20" y2="17" />
