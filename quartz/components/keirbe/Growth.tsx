@@ -5,7 +5,7 @@ import { FullSlug, resolveRelative } from "../../util/path"
  * keir.be growth row: where a note sits on the garden's scale, drawn at the end of its
  * date line by KeirbeFrame (styles: quartz/styles/keirbe/_growth.scss).
  *
- *  - The stage comes from the note's tags: seed 🌰 → sprout 🌱 → sapling 🌿 → tree 🌳.
+ *  - The stage comes from the note's tags: seed 🌰 → seedling 🌱 → sapling 🌿 → tree 🌳.
  *    The whole scale is shown, with the note's own stage lit.
  *  - Off the scale, a houseplant 🪴 or evergreen 🌲 note shows just its own icon.
  *  - Notes without a stage (Contact, folder lists) show nothing.
@@ -17,7 +17,7 @@ import { FullSlug, resolveRelative } from "../../util/path"
  * in the text).
  */
 
-const SCALE = ["seed", "sprout", "sapling", "tree"] as const
+const SCALE = ["seed", "seedling", "sapling", "tree"] as const
 const OFF_SCALE = ["houseplant", "evergreen"] as const
 export type Stage = (typeof SCALE)[number] | (typeof OFF_SCALE)[number]
 
@@ -29,7 +29,7 @@ export const SHAPES: Record<Stage, string[]> = {
     "M6.5 11c0 5.2 2.4 8.9 5.5 10.25c3.1-1.35 5.5-5.05 5.5-10.25",
   ],
   // Two leaves on a short stem
-  sprout: [
+  seedling: [
     "M8 21h8",
     "M12 21v-9.5",
     "M12 13.5c-3.6 0-6-2.2-6-5.5c3.6 0 6 2.2 6 5.5z",
