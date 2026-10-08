@@ -1,7 +1,7 @@
 ---
 title: Welcome
-tags:
-  - sprout
+growth: seedling
+draft: false
 ---
 
 Hello, and welcome to my digital garden.

@@ -1,7 +1,7 @@
 ---
 title: This garden
-tags:
-  - sprout
+growth: seedling
+draft: false
 ---
 
 ## How it's built
@@ -11,7 +11,7 @@ tags:
 - **Kept** on [GitHub](https://github.com/iamleonkeir/keir-garden), in the open
 - **Served** by Cloudflare, which rebuilds the site every time I publish
 
-I write a note, publish, and a minute later it's live.
+I write a note, publish, and it's live.
 
 ## Why it's built this way
 

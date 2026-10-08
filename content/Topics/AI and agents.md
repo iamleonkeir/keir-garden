@@ -1,7 +1,7 @@
 ---
 title: AI and agents
-tags:
-  - sprout
+growth: seedling
+draft: false
 ---
 
 ## Working with AI

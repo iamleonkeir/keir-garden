@@ -1,7 +1,7 @@
 ---
 title: Awakening Your Light Body
-tags:
-  - sprout
+growth: seedling
+draft: false
 ---
 
 > [!tip] Already invited?

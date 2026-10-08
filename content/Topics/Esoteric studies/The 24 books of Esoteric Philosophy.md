@@ -1,7 +1,7 @@
 ---
 title: The 24 books
-tags:
-  - evergreen
+growth: evergreen
+draft: false
 ---
 
 Alice A. Bailey (1880–1949) wrote 24 books on the inner side of life: the soul, meditation, the seven rays, healing, initiation, and where humanity is heading. Most of them, she said, were written with a Tibetan teacher, Djwhal Khul, whose words she took down telepathically. The rest are her own.

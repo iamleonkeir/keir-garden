@@ -1,7 +1,7 @@
 ---
 title: Esoteric studies
-tags:
-  - sprout
+growth: seedling
+draft: false
 ---
 
 ## What draws me

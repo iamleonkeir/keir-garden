@@ -1,7 +1,7 @@
 ---
 title: Thinking in notes
-tags:
-  - sprout
+growth: seedling
+draft: false
 ---
 
 ## Why notes

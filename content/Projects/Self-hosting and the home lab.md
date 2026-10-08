@@ -1,7 +1,7 @@
 ---
 title: Self-hosting and the home lab
-tags:
-  - sprout
+growth: seedling
+draft: false
 ---
 
 ## Why run my own
