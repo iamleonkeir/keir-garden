@@ -1,14 +1,15 @@
 import { PageFrame, PageFrameProps } from "../frames/types"
 import { QuartzPluginData } from "../../plugins/vfile"
-import { FullSlug, resolveRelative } from "../../util/path"
+import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 
 /**
  * keir.be page frame, modelled on Mintlify "Sequoia".
  *
  * A full-bleed, sticky header in two bars sits above Quartz's usual three columns:
- *  - Top bar: the `header` layout slot from quartz.config.yaml. The first component
- *    sits on the left (site title), the second in the centre (search), the rest on
- *    the right (toggles), followed by the course sign-in button.
+ *  - Top bar: the brand on the left ("keir.be" is the home link; "nson" follows in a
+ *    lighter shade, so it reads keir.benson). Then the `header` layout slot from
+ *    quartz.config.yaml: its first component sits in the centre (search), the rest on
+ *    the right (mode toggles), followed by the sign-in button at the far right.
  *  - Tab bar: the vault's top-level folders as tabs on the left, its standalone
  *    root-level pages on the right. Worked out from the content, so a new folder
  *    becomes a tab by itself. The current section is marked.
@@ -18,8 +19,11 @@ import { FullSlug, resolveRelative } from "../../util/path"
  * Styles: quartz/styles/keirbe/_header.scss
  */
 
-const COURSE_SIGN_IN = {
-  label: "Course sign-in",
+// The brand: cfg.pageTitle ("keir.be") is the link; this tail completes the old name.
+const BRAND_TAIL = "nson"
+
+const SIGN_IN = {
+  label: "Sign-in",
   href: "https://learn.keir.be/learn/",
 }
 
@@ -83,7 +87,7 @@ export const KeirbeFrame: PageFrame = {
     const slug = componentData.fileData.slug as FullSlug
     const current = slug.includes("/") ? slug.split("/")[0] : slug
     const { sections, pages } = buildTabs(componentData.allFiles)
-    const [Brand, Centre, ...Actions] = header
+    const [Centre, ...Actions] = header
 
     const renderTab = (tab: Tab) => {
       const active = tab.key === current
@@ -102,15 +106,20 @@ export const KeirbeFrame: PageFrame = {
       <>
         <header class="kb-topbar">
           <div class="kb-bar kb-bar-main">
-            <div class="kb-bar-left">{Brand && <Brand {...componentData} />}</div>
+            <div class="kb-bar-left">
+              <h2 class="kb-brand">
+                <a href={pathToRoot(slug)}>{componentData.cfg.pageTitle}</a>
+                <span class="kb-brand-tail">{BRAND_TAIL}</span>
+              </h2>
+            </div>
             <div class="kb-bar-centre">{Centre && <Centre {...componentData} />}</div>
             <div class="kb-bar-right">
-              <a class="kb-cta" href={COURSE_SIGN_IN.href}>
-                {COURSE_SIGN_IN.label}
-              </a>
               {Actions.map((Action) => (
                 <Action {...componentData} />
               ))}
+              <a class="kb-cta" href={SIGN_IN.href}>
+                {SIGN_IN.label}
+              </a>
             </div>
           </div>
           <nav class="kb-bar kb-tabs" aria-label="Sections">

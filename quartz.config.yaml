@@ -172,7 +172,7 @@ plugins:
   - source: "@quartz-community/search"
     enabled: true
     layout:
-      position: header # keir.be frame: 2nd header component = centre of the top bar
+      position: header # keir.be frame: 1st header component = centre of the top bar
       priority: 20
   - source: "@quartz-community/backlinks"
     enabled: true
@@ -195,14 +195,14 @@ plugins:
       position: beforeBody
       priority: 30
   - source: "@quartz-community/page-title"
-    enabled: true
+    enabled: false # keir.be frame draws the brand itself (keir.be + "nson")
     layout:
-      position: header # keir.be frame: 1st header component = left of the top bar
+      position: header
       priority: 10
   - source: "@quartz-community/darkmode"
     enabled: true
     layout:
-      position: header # keir.be frame: further header components = right of the top bar
+      position: header # keir.be frame: further header components = right, before Sign-in
       priority: 30
   - source: "@quartz-community/reader-mode"
     enabled: true

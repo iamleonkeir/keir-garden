@@ -1,17 +1,6 @@
 // keir.be: the page furniture around the text. Quiet, small, warm grey.
 @use "../variables.scss" as *;
 
-// ---------- Site title (moves into the header bar in stage 2) ----------
-.page-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-
-  & a {
-    color: var(--dark);
-  }
-}
-
 // ---------- Breadcrumbs and date line ----------
 .breadcrumb-container {
   font-size: 0.875rem;

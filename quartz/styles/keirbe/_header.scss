@@ -100,10 +100,29 @@ html {
   display: flex;
   align-items: center;
   min-width: 0;
+}
 
-  & .page-title {
-    margin: 0;
-    white-space: nowrap;
+// ---------- Brand: keir.be (the home link) + "nson" in a lighter shade ----------
+.kb-brand {
+  margin: 0;
+  white-space: nowrap;
+  font-family: var(--titleFont);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+
+  & a {
+    color: var(--dark);
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--kb-accent-strong);
+    }
+  }
+
+  & .kb-brand-tail {
+    color: var(--kb-brand-tail);
   }
 }
 
@@ -251,9 +270,13 @@ html {
     gap: 0.5rem;
   }
 
-  .kb-cta,
   .kb-bar-right .readermode {
     display: none;
+  }
+
+  .kb-cta {
+    height: 1.75rem;
+    padding: 0 0.625rem;
   }
 
   .kb-bar-centre .search {
