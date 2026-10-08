@@ -10,9 +10,9 @@ import { FullSlug, resolveRelative } from "../../util/path"
  *  - Order at every level: pages first, then folders; each alphabetical by title
  *    (case-insensitive, numbers in natural order).
  *  - A folder's name links to its own page (its index.md); its chevron folds it.
- *  - One branch open at a time: only the folders holding the current page are open,
- *    so following links through the garden, the menu always shows where you are.
- *    Opening another folder by hand closes the rest (NAV_SCRIPT).
+ *  - Every page arrives with only the folders holding it open, so following links
+ *    through the garden the menu always shows where you are, and never piles up.
+ *    By hand, any folder folds and unfolds freely, until the next page.
  *  - Not listed: the home page (the brand links to it), folder index pages (they are
  *    the folder), tag pages, unlisted pages.
  * On phones the menu opens from the tab bar's menu button.
@@ -110,7 +110,7 @@ export function KeirbeNav({ allFiles, slug }: { allFiles: QuartzPluginData[]; sl
         const holdsCurrent = slug.startsWith(node.key + "/")
         return (
           <li class="kb-tree-folder">
-            <details open={holdsCurrent} data-folder={node.key}>
+            <details open={holdsCurrent}>
               <summary class={here ? "kb-tree-summary active" : "kb-tree-summary"}>
                 <Chevron />
                 {node.slug ? (
@@ -140,23 +140,11 @@ export function KeirbeNav({ allFiles, slug }: { allFiles: QuartzPluginData[]; sl
   )
 }
 
-/**
- * Phones: opens and closes the menu, and closes it after every page change.
- * Everywhere: one branch open at a time. Opening a folder by hand closes every other
- * open folder that isn't one of its parents. (After a page change the page itself
- * arrives with only the current page's folders open.) Runs once.
- */
+/** Phones: opens and closes the menu, and closes it after every page change. Runs once. */
 export const NAV_SCRIPT = `(function () {
   if (window.__kbNav) return;
   window.__kbNav = true;
   var root = document.documentElement;
-  document.addEventListener("toggle", function (event) {
-    var opened = event.target;
-    if (!opened.matches || !opened.matches(".kb-nav details[data-folder]") || !opened.open) return;
-    document.querySelectorAll(".kb-nav details[data-folder][open]").forEach(function (d) {
-      if (d !== opened && !d.contains(opened)) d.open = false;
-    });
-  }, true);
   function setOpen(open) {
     root.classList.toggle("kb-nav-open", open);
     var button = document.querySelector(".kb-nav-button");
