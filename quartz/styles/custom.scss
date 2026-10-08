@@ -1,3 +1,9 @@
 @use "./variables.scss" as *;
 
-// put your custom CSS here!
+// keir.be design (modelled on Mintlify "Sequoia"). Each part lives in its own
+// file in ./keirbe/ so Quartz's own styles stay untouched for upgrades.
+@use "./keirbe/fonts";
+@use "./keirbe/tokens";
+@use "./keirbe/typography";
+@use "./keirbe/layout";
+@use "./keirbe/components";

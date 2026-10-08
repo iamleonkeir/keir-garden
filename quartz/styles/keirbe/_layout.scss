@@ -1,0 +1,78 @@
+// keir.be layout: Sequoia's proportions on Quartz's three-column grid.
+// Desktop: 288px menu | reading column (max 696px of text) | 272px right column.
+@use "../variables.scss" as *;
+
+$kb-left: 288px;
+$kb-right: 272px;
+$kb-reading: 696px; // text width
+$kb-gutter: 2rem; // padding either side of the reading column
+$kb-top: 2.5rem; // space above content and sidebars (Quartz default: 6rem)
+
+.page {
+  max-width: 1480px;
+
+  & > #quartz-body {
+    @media all and ($desktop) {
+      grid-template-columns: $kb-left minmax(0, 1fr) $kb-right;
+      column-gap: 0;
+    }
+
+    @media all and ($tablet) {
+      grid-template-columns: 256px minmax(0, 1fr);
+      column-gap: 0;
+    }
+
+    & .sidebar {
+      padding: $kb-top 1.5rem 1.5rem;
+      gap: 1.5rem;
+    }
+
+    & .sidebar.left {
+      @media all and not ($mobile) {
+        border-right: 1px solid var(--kb-border);
+      }
+      @media all and ($mobile) {
+        padding: 1.25rem 0 0;
+      }
+    }
+
+    & .sidebar.right {
+      @media all and not ($desktop) {
+        padding: 0;
+      }
+    }
+
+    // The reading column: centred, Sequoia's measure
+    & .center {
+      min-width: 0;
+      width: 100%;
+      max-width: calc(#{$kb-reading} + 2 * #{$kb-gutter});
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 $kb-gutter;
+      box-sizing: border-box;
+
+      @media all and ($mobile) {
+        padding: 0;
+      }
+    }
+
+    & .page-header {
+      margin-top: $kb-top;
+
+      @media all and ($mobile) {
+        margin-top: 0.5rem;
+      }
+    }
+
+    & footer {
+      max-width: calc(#{$kb-reading} + 2 * #{$kb-gutter});
+      min-width: 0;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 $kb-gutter;
+      box-sizing: border-box;
+    }
+  }
+}

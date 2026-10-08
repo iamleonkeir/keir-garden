@@ -1,0 +1,34 @@
+// keir.be design tokens, modelled on Mintlify "Sequoia".
+// Quartz's own nine colour slots live in quartz.config.yaml (theme.colors);
+// these are the extra ones the design needs. Prefix: --kb- (keir.be).
+
+:root {
+  // Sequoia's olive accent, in three strengths
+  --kb-accent: #808e02; // primary: underlines, markers
+  --kb-accent-strong: #6a7502; // text-safe on white
+  --kb-accent-bright: #b2c600; // lime, for dark mode and highlights
+
+  // Warm, slightly olive-tinted greys (Sequoia gray-50/100/200)
+  --kb-surface: #f6f7f2; // code blocks, chips, panels
+  --kb-border: #f1f2ee; // hairlines
+  --kb-border-strong: #e2e2de; // quotes, table rules
+
+  --kb-muted: #737470; // meta text: dates, breadcrumbs, labels
+
+  // Type
+  --kb-tracking-tight: -0.025em;
+  --kb-radius: 12px;
+  --kb-radius-small: 6px;
+}
+
+:root[saved-theme="dark"] {
+  --kb-accent: #b2c600;
+  --kb-accent-strong: #b2c600;
+  --kb-accent-bright: #c5d93a;
+
+  --kb-surface: #1a1b16; // Sequoia gray-900
+  --kb-border: #292925; // gray-800
+  --kb-border-strong: #42423e; // gray-700
+
+  --kb-muted: #8a8a86;
+}

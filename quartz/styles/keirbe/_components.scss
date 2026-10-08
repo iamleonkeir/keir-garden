@@ -1,0 +1,163 @@
+// keir.be: the page furniture around the text. Quiet, small, warm grey.
+@use "../variables.scss" as *;
+
+// ---------- Site title (moves into the header bar in stage 2) ----------
+.page-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  & a {
+    color: var(--dark);
+  }
+}
+
+// ---------- Breadcrumbs and date line ----------
+.breadcrumb-container {
+  font-size: 0.875rem;
+  color: var(--kb-muted);
+
+  & a {
+    color: var(--kb-muted);
+    font-weight: 500;
+
+    &:hover {
+      color: var(--dark);
+    }
+  }
+
+  & .breadcrumb-element p {
+    color: var(--kb-border-strong);
+  }
+}
+
+.content-meta {
+  font-size: 0.875rem;
+  color: var(--kb-muted);
+  margin: 0.75rem 0 0;
+}
+
+// ---------- Properties panel and tag chips ----------
+.note-properties {
+  border: 1px solid var(--kb-border);
+  border-radius: var(--kb-radius);
+  font-size: 0.875rem;
+
+  & .note-properties-header {
+    color: var(--kb-muted);
+    font-weight: 500;
+  }
+
+  & .note-properties-key {
+    color: var(--kb-muted);
+  }
+}
+
+a.tag-link,
+.note-properties .note-properties-tags .tag-link {
+  background: var(--kb-surface);
+  border: 1px solid var(--kb-border);
+  color: var(--darkgray);
+  border-radius: 999px;
+  padding: 0.0625rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+
+  &:hover {
+    color: var(--dark);
+    border-color: var(--kb-border-strong);
+  }
+}
+
+// ---------- Sidebars: Sequoia-style small type ----------
+.sidebar {
+  // Section titles: Graph View, Table of Contents, Backlinks, Explorer
+  & .graph > h3,
+  & .toc-header h3,
+  & .backlinks > h3,
+  & .title-button h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--kb-muted);
+    margin: 0;
+  }
+
+  & .explorer-content,
+  & .toc-content,
+  & .backlinks ul {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  & .explorer-content a,
+  & .explorer-content .folder-title,
+  & .backlinks a {
+    color: var(--darkgray);
+    font-weight: 400;
+    background: none;
+
+    &:hover {
+      color: var(--dark);
+    }
+  }
+
+  & .explorer-content li,
+  & .backlinks li {
+    margin: 0.375rem 0;
+  }
+
+  // Quartz fades entries with opacity; we use colour instead (in view = dark)
+  & .toc-content a {
+    opacity: 1;
+    color: var(--kb-muted);
+    font-weight: 500;
+
+    &:hover,
+    &.in-view {
+      opacity: 1;
+      color: var(--dark);
+    }
+  }
+
+  & .graph > .graph-outer {
+    border: 1px solid var(--kb-border);
+    border-radius: var(--kb-radius);
+  }
+}
+
+// ---------- Search button ----------
+.search > .search-button {
+  border: 1px solid var(--kb-border-strong);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: var(--kb-muted);
+
+  & p {
+    color: var(--kb-muted);
+  }
+}
+
+// ---------- Callouts: rounder; "tip" takes the olive accent ----------
+.callout {
+  border-radius: var(--kb-radius);
+
+  &[data-callout="tip"] {
+    --color: var(--kb-accent-strong);
+    --border: color-mix(in srgb, var(--kb-accent) 30%, transparent);
+    --bg: color-mix(in srgb, var(--kb-accent) 6%, transparent);
+  }
+}
+
+// ---------- Footer ----------
+footer {
+  font-size: 0.8125rem;
+  color: var(--kb-muted);
+  opacity: 1;
+
+  & p,
+  & a {
+    color: var(--kb-muted);
+  }
+}

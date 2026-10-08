@@ -1,0 +1,204 @@
+// keir.be typography: Inter throughout, Geist Mono for code.
+// Scale taken from Sequoia: page title 36/40, H2 24/32, H3 20/28, body 16/28.
+@use "../variables.scss" as *;
+
+body {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(178, 198, 0, 0.35);
+  color: var(--dark);
+}
+
+// ---------- Page title (the note's name) ----------
+.article-title {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 500;
+  letter-spacing: var(--kb-tracking-tight);
+  color: var(--dark);
+  margin: 0.5rem 0 0.75rem;
+
+  @media all and ($mobile) {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+// ---------- Body text ----------
+article {
+  p,
+  li,
+  td,
+  tbody {
+    font-size: 1rem;
+    line-height: 1.75rem;
+    color: var(--darkgray);
+  }
+
+  p {
+    margin: 1rem 0;
+  }
+
+  // ...but not inside list items or callout titles, where Quartz wants none
+  li > p {
+    margin: 0;
+  }
+
+  .callout .callout-title-inner > p {
+    margin: 0;
+    font-weight: 600;
+    color: var(--color);
+  }
+
+  .callout .callout-content > p:first-child {
+    margin-top: 0;
+  }
+
+  strong,
+  p > strong {
+    font-weight: 600;
+    color: var(--dark);
+  }
+
+  // ---------- Headings ----------
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--dark);
+    font-weight: 500;
+  }
+
+  h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    letter-spacing: var(--kb-tracking-tight);
+    margin: 2.5rem 0 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    letter-spacing: var(--kb-tracking-tight);
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    letter-spacing: -0.0125em;
+    margin: 2rem 0 0.5rem;
+  }
+
+  h4 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  h5,
+  h6 {
+    font-size: 1rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  // ---------- Links: dark text, thin olive underline (Sequoia) ----------
+  a:not([role="anchor"]):not(.tag-link):not(:has(> img)) {
+    color: var(--dark);
+    font-weight: 600;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    line-height: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--kb-accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    transition:
+      text-decoration-color 0.15s ease,
+      text-decoration-thickness 0.15s ease;
+
+    &:hover {
+      color: var(--dark);
+      text-decoration-color: var(--kb-accent-strong);
+      text-decoration-thickness: 2px;
+    }
+
+    &.broken {
+      color: var(--kb-muted);
+      text-decoration-style: dotted;
+      opacity: 1;
+    }
+  }
+
+  // ---------- Lists ----------
+  ul,
+  ol {
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin: 0.5rem 0;
+
+    &::marker {
+      color: var(--kb-muted);
+    }
+  }
+
+  // ---------- Quotes ----------
+  blockquote:not(.callout) {
+    border-left: 4px solid var(--kb-border-strong);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: var(--darkgray);
+  }
+
+  // ---------- Code ----------
+  :not(pre) > code {
+    font-family: var(--codeFont);
+    font-size: 0.875em;
+    color: var(--dark);
+    background: var(--kb-surface);
+    border: 1px solid var(--kb-border);
+    border-radius: var(--kb-radius-small);
+    padding: 0.125rem 0.375rem;
+  }
+
+  pre {
+    background: var(--kb-surface);
+    border: 1px solid var(--kb-border);
+    border-radius: var(--kb-radius);
+
+    & > code {
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  // ---------- Rules and tables ----------
+  hr {
+    background-color: var(--kb-border-strong);
+    margin: 2.5rem auto;
+  }
+
+  th {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dark);
+    border-bottom: 1px solid var(--kb-border-strong);
+  }
+
+  tr {
+    border-bottom: 1px solid var(--kb-border);
+  }
+}
