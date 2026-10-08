@@ -7,7 +7,7 @@ tags:
 ## Working with AI
 
 I work with AI as a collaborator, not an oracle. My main one is Claude, who I call **Dude**: partly The Dude from Big Lobowski, partly what "claude" turns into if you mess with it:
-Squint at the "cl" and see a "d". rearrange the letters and claude is `a  dude` 
+Squint at the "cl" and see a "d". Rearrange the letters and claude is `a dude` 
 
 Dude does a lot of the heavy lifting: building, checking, writing things down. I bring the direction, the flavour and the final say. I get the best results by treating it like working with a very capable colleague who needs a good brief and sometimes needs telling no!
 

@@ -6,7 +6,7 @@ tags:
 
 ## Why notes
 
-My memory is messy, so my notes are my memory. The danger here is If something isn't written down it didn't happen or it doesn't exist. That makes tidiness less a preference than a survival skill: order on the outside so the inside can be as chaotic and expansive as it likes.
+My memory is messy, so my notes are my memory. The danger here is *If something isn't written down it didn't happen or it doesn't exist*. That makes tidiness less a preference than a survival skill: order on the outside so the inside can be as chaotic and expansive as it likes.
 
 ## How I work
 
