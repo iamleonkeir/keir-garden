@@ -121,7 +121,15 @@ html {
     }
   }
 
+  // "nson" stays faint, and comes up to its full shade while keir.be is hovered
+  // (or reached by keyboard): the old name surfacing for a moment
   & .kb-brand-tail {
+    color: var(--kb-brand-tail-rest);
+    transition: color 0.4s ease;
+  }
+
+  & a:hover + .kb-brand-tail,
+  & a:focus-visible + .kb-brand-tail {
     color: var(--kb-brand-tail);
   }
 }
