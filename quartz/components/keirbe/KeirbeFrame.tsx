@@ -1,6 +1,7 @@
 import { PageFrame, PageFrameProps } from "../frames/types"
 import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
+import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
 
 /**
  * keir.be page frame, modelled on Mintlify "Sequoia".
@@ -88,6 +89,7 @@ export const KeirbeFrame: PageFrame = {
     const current = slug.includes("/") ? slug.split("/")[0] : slug
     const { sections, pages } = buildTabs(componentData.allFiles)
     const [Centre, ...Actions] = header
+    const showContactForm = componentData.fileData.frontmatter?.["contact-form"] === true
 
     const renderTab = (tab: Tab) => {
       const active = tab.key === current
@@ -141,6 +143,7 @@ export const KeirbeFrame: PageFrame = {
             </div>
           </div>
           <Content {...componentData} />
+          {showContactForm && <ContactForm />}
           <hr />
           <div class="page-footer">
             {afterBody.map((BodyComponent) => (
@@ -156,6 +159,7 @@ export const KeirbeFrame: PageFrame = {
         {footer.map((FooterComponent) => (
           <FooterComponent {...componentData} />
         ))}
+        <script dangerouslySetInnerHTML={{ __html: CONTACT_FORM_SCRIPT }} />
       </>
     )
   },

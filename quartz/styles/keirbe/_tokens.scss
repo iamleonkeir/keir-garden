@@ -15,6 +15,7 @@
 
   --kb-muted: #737470; // meta text: dates, breadcrumbs, labels
   --kb-brand-tail: #a2a29e; // the "nson" of keir.benson (Sequoia gray-400)
+  --kb-danger: #b42318; // form errors
 
   // Type
   --kb-tracking-tight: -0.025em;
@@ -33,4 +34,5 @@
 
   --kb-muted: #8a8a86; // a touch lighter than Sequoia's #737470, for legibility on near-black
   --kb-brand-tail: #737470;
+  --kb-danger: #f97066;
 }
