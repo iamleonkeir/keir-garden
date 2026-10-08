@@ -3,6 +3,7 @@ import type { Root } from "hast"
 import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
+import { AcornMark } from "./Acorn"
 import { KeirbeGrowth } from "./Growth"
 import { withGrowthIcons } from "./growthEmoji"
 import { KeirbeNav, NAV_SCRIPT } from "./Nav"
@@ -120,7 +121,10 @@ export const KeirbeFrame: PageFrame = {
           <div class="kb-bar kb-bar-main">
             <div class="kb-bar-left">
               <h2 class="kb-brand">
-                <a href={pathToRoot(slug)}>{componentData.cfg.pageTitle}</a>
+                <a href={pathToRoot(slug)}>
+                  <AcornMark />
+                  {componentData.cfg.pageTitle}
+                </a>
                 <span class="kb-brand-tail">{BRAND_TAIL}</span>
               </h2>
             </div>

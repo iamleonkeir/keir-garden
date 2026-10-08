@@ -121,6 +121,27 @@ html {
     }
   }
 
+  // The acorn mark before the name (Acorn.tsx), centred on the capitals
+  & .kb-brand-mark {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-right: 0.45em;
+    vertical-align: -0.25em;
+  }
+  & .kb-mark-stalk {
+    fill: none;
+    stroke: var(--kb-mark-cap);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  & .kb-mark-cap {
+    fill: var(--kb-mark-cap);
+  }
+  & .kb-mark-nut {
+    fill: var(--kb-mark-nut);
+  }
+
   // "nson" stays faint, and comes up to its full shade while keir.be is hovered
   // (or reached by keyboard): the old name surfacing for a moment
   & .kb-brand-tail {
