@@ -1,12 +1,14 @@
-// keir.be left-hand menu (quartz/components/keirbe/Nav.tsx), Sequoia style:
-// small uppercase group headings, 14px items, the current page in olive.
+// keir.be left-hand menu (quartz/components/keirbe/Nav.tsx): a plain file tree,
+// close to Obsidian's, in the Sequoia type (14px, current page in olive).
 @use "../variables.scss" as *;
 
+$kb-chevron: 12px;
+$kb-chevron-gap: 0.375rem;
+
 .kb-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
   width: 100%;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 
   & ul {
     list-style: none;
@@ -15,45 +17,33 @@
   }
 
   & li {
-    margin: 0;
+    margin: 1px 0;
+  }
+
+  // Nested levels: indented, with a faint guide line
+  & details > ul {
+    margin-left: 0.875rem;
+    padding-left: 0.375rem;
+    border-left: 1px solid var(--kb-border);
   }
 }
 
-.kb-nav-heading {
-  display: block;
-  margin: 0 0 0.5rem;
-  padding: 0 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--dark);
-  background: none;
-
-  &:is(a):hover {
-    color: var(--kb-accent-strong);
-  }
-
-  &.active {
-    color: var(--kb-accent-strong);
-  }
-}
-
-.kb-nav-item,
-.kb-nav-subheading {
-  display: block;
-  padding: 0.375rem 0.5rem;
+.kb-tree-item,
+.kb-tree-summary {
+  display: flex;
+  align-items: center;
+  gap: $kb-chevron-gap;
+  padding: 0.3125rem 0.5rem;
   border-radius: 6px;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 400;
   color: var(--darkgray);
+  font-weight: 400;
   background: none;
+  cursor: pointer;
   transition:
     color 0.15s ease,
     background-color 0.15s ease;
 
-  &:is(a):hover {
+  &:hover {
     color: var(--dark);
     background: var(--kb-surface);
   }
@@ -64,20 +54,34 @@
   }
 }
 
-// Subfolders: a quieter heading with its pages indented beneath
-.kb-nav-sub {
-  margin-top: 0.75rem;
+// Pages line up with folder names (room for the folder chevron)
+.kb-tree-item {
+  padding-left: calc(0.5rem + #{$kb-chevron} + #{$kb-chevron-gap});
+}
 
-  & > .kb-nav-subheading {
-    font-weight: 500;
-    color: var(--dark);
+.kb-tree-summary {
+  list-style: none;
+  color: var(--dark);
+  font-weight: 500;
+  user-select: none;
+
+  &::-webkit-details-marker {
+    display: none;
   }
 
-  & > ul {
-    margin-left: 0.75rem;
-    padding-left: 0.5rem;
-    border-left: 1px solid var(--kb-border);
+  &::marker {
+    content: "";
   }
+}
+
+.kb-tree-chevron {
+  flex-shrink: 0;
+  color: var(--kb-muted);
+  transition: transform 0.15s ease;
+}
+
+details[open] > .kb-tree-summary .kb-tree-chevron {
+  transform: rotate(90deg);
 }
 
 // ---------- Menu button (phones only) ----------

@@ -2,23 +2,30 @@ import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, resolveRelative } from "../../util/path"
 
 /**
- * keir.be left-hand menu (replaces Quartz's "Explorer"), Sequoia style.
- * Rendered by KeirbeFrame into the left sidebar, worked out from the vault:
- *  - inside a section (a top-level folder such as Topics): that section's notes,
- *    with subfolders as subheadings
- *  - anywhere else (home, About, Contact…): "The garden" (home + root pages) and
- *    "Sections" (the top-level folders)
- * The current page is marked. On phones the menu opens from the tab bar's menu button.
+ * keir.be left-hand menu (replaces Quartz's "Explorer"): a plain file tree, close to
+ * Obsidian's. Rendered by KeirbeFrame into the left sidebar, worked out from the vault.
+ *
+ *  - No headings: the vault's root pages, then its folders.
+ *  - Folders fold out (native <details>), with subfolders nested the same way.
+ *  - Order at every level: pages first, then folders; each alphabetical by title
+ *    (case-insensitive, numbers in natural order).
+ *  - The folder holding the current page opens by itself; the current page is marked.
+ *    Like Obsidian, open folders stay open (between pages, and across visits) until
+ *    closed by hand (NAV_SCRIPT, localStorage "kb-folders").
+ *  - Not listed: the home page (the brand links to it), folder index pages (they are
+ *    the folder), tag pages, unlisted pages.
+ * On phones the menu opens from the tab bar's menu button.
  */
 
 interface NavNode {
-  key: string
+  key: string // folder path, or page slug
   title: string
   slug?: FullSlug // a page, or a folder's own index page
+  folder: boolean
   children: NavNode[]
 }
 
-const byTitle = (a: { title: string }, b: { title: string }) =>
+const byTitle = (a: NavNode, b: NavNode) =>
   a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: "base" })
 
 function fallbackTitle(segment: string): string {
@@ -26,145 +33,141 @@ function fallbackTitle(segment: string): string {
   return words.charAt(0).toUpperCase() + words.slice(1)
 }
 
-function listed(file: QuartzPluginData): boolean {
-  return !!file.slug && !(file as { unlisted?: boolean }).unlisted
-}
-
-/** All pages under a top-level folder, as a tree (folders become nodes with children). */
-function sectionTree(allFiles: QuartzPluginData[], section: string): NavNode {
-  const root: NavNode = { key: section, title: fallbackTitle(section), children: [] }
-  const folders = new Map<string, NavNode>([[section, root]])
+function buildTree(allFiles: QuartzPluginData[]): NavNode {
+  const root: NavNode = { key: "", title: "", folder: true, children: [] }
+  const folders = new Map<string, NavNode>([["", root]])
 
   const folderNode = (path: string[]): NavNode => {
-    const id = path.join("/")
-    let node = folders.get(id)
+    const key = path.join("/")
+    let node = folders.get(key)
     if (!node) {
-      node = { key: id, title: fallbackTitle(path[path.length - 1]), children: [] }
-      folders.set(id, node)
+      node = { key, title: fallbackTitle(path[path.length - 1]), folder: true, children: [] }
+      folders.set(key, node)
       folderNode(path.slice(0, -1)).children.push(node)
     }
     return node
   }
 
   for (const file of allFiles) {
-    if (!listed(file)) continue
-    const parts = file.slug!.split("/")
-    if (parts[0] !== section || parts.length < 2) continue
+    const slug = file.slug
+    if (!slug || (file as { unlisted?: boolean }).unlisted) continue
+    const parts = slug.split("/")
+    if (parts[0] === "tags" || slug === "index" || slug === "404") continue
     const last = parts[parts.length - 1]
-    const folder = folderNode(parts.slice(0, -1))
+    const parent = folderNode(parts.slice(0, -1))
     if (last === "index") {
-      folder.slug = file.slug as FullSlug
-      if (file.frontmatter?.title) folder.title = file.frontmatter.title
+      parent.slug = slug as FullSlug
+      if (file.frontmatter?.title) parent.title = file.frontmatter.title
     } else {
-      folder.children.push({
-        key: file.slug!,
+      parent.children.push({
+        key: slug,
         title: file.frontmatter?.title ?? fallbackTitle(last),
-        slug: file.slug as FullSlug,
+        slug: slug as FullSlug,
+        folder: false,
         children: [],
       })
     }
   }
 
   const sort = (node: NavNode) => {
-    // pages first, then subfolders, each alphabetically
-    const pages = node.children.filter((c) => c.children.length === 0 && !folders.has(c.key))
-    const subs = node.children.filter((c) => folders.has(c.key))
-    node.children = [...pages.sort(byTitle), ...subs.sort(byTitle)]
-    subs.forEach(sort)
+    const pages = node.children.filter((c) => !c.folder).sort(byTitle)
+    const subfolders = node.children.filter((c) => c.folder).sort(byTitle)
+    node.children = [...pages, ...subfolders]
+    subfolders.forEach(sort)
   }
   sort(root)
   return root
 }
 
-function gardenGroups(allFiles: QuartzPluginData[]): NavNode[] {
-  const home: NavNode[] = []
-  const pages: NavNode[] = []
-  const sections = new Map<string, NavNode>()
-  for (const file of allFiles) {
-    if (!listed(file)) continue
-    const slug = file.slug!
-    const parts = slug.split("/")
-    if (parts.length === 1) {
-      if (slug === "404") continue
-      const node: NavNode = {
-        key: slug,
-        title: file.frontmatter?.title ?? fallbackTitle(slug),
-        slug: slug as FullSlug,
-        children: [],
-      }
-      ;(slug === "index" ? home : pages).push(node)
-    } else if (parts[0] !== "tags") {
-      const top = parts[0]
-      const isIndex = parts.length === 2 && parts[1] === "index"
-      const known = sections.get(top)
-      if (!known || isIndex) {
-        sections.set(top, {
-          key: top,
-          title: isIndex && file.frontmatter?.title ? file.frontmatter.title : (known?.title ?? fallbackTitle(top)),
-          slug: `${top}/index` as FullSlug,
-          children: [],
-        })
-      }
-    }
-  }
-  return [
-    { key: "garden", title: "The garden", children: [...home, ...pages.sort(byTitle)] },
-    { key: "sections", title: "Sections", children: [...sections.values()].sort(byTitle) },
-  ]
-}
+const Chevron = () => (
+  <svg class="kb-tree-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="9 6 15 12 9 18" />
+  </svg>
+)
 
 export function KeirbeNav({ allFiles, slug }: { allFiles: QuartzPluginData[]; slug: FullSlug }) {
-  const parts = slug.split("/")
-  const section = parts.length > 1 && parts[0] !== "tags" ? parts[0] : null
-  const groups = section ? [sectionTree(allFiles, section)] : gardenGroups(allFiles)
+  const tree = buildTree(allFiles)
 
-  const link = (node: NavNode, cls: string) => {
-    const active = node.slug === slug
-    return node.slug ? (
-      <a
-        class={active ? `${cls} active` : cls}
-        href={resolveRelative(slug, node.slug)}
-        aria-current={active ? "page" : undefined}
-      >
-        {node.title}
-      </a>
-    ) : (
-      <span class={cls}>{node.title}</span>
-    )
-  }
-
-  const renderList = (nodes: NavNode[]) => (
+  const renderNodes = (nodes: NavNode[]) => (
     <ul>
-      {nodes.map((node) =>
-        node.children.length > 0 ? (
-          <li class="kb-nav-sub">
-            {link(node, "kb-nav-subheading")}
-            {renderList(node.children)}
+      {nodes.map((node) => {
+        if (!node.folder) {
+          const active = node.slug === slug
+          return (
+            <li>
+              <a
+                class={active ? "kb-tree-item active" : "kb-tree-item"}
+                href={resolveRelative(slug, node.slug!)}
+                aria-current={active ? "page" : undefined}
+              >
+                {node.title}
+              </a>
+            </li>
+          )
+        }
+        const here = node.slug === slug
+        const holdsCurrent = slug.startsWith(node.key + "/")
+        return (
+          <li class="kb-tree-folder">
+            <details open={holdsCurrent} data-folder={node.key}>
+              <summary class={here ? "kb-tree-summary active" : "kb-tree-summary"}>
+                <Chevron />
+                <span>{node.title}</span>
+              </summary>
+              {renderNodes(node.children)}
+            </details>
           </li>
-        ) : (
-          <li>{link(node, "kb-nav-item")}</li>
-        ),
-      )}
+        )
+      })}
     </ul>
   )
 
   return (
     <nav class="kb-nav" aria-label="Pages">
-      {groups.map((group) => (
-        <div class="kb-nav-group">
-          {link(group, "kb-nav-heading")}
-          {renderList(group.children)}
-        </div>
-      ))}
+      {renderNodes(tree.children)}
     </nav>
   )
 }
 
-/** Opens and closes the menu on phones; closes it after every page change. Runs once. */
+/**
+ * Phones: opens and closes the menu, and closes it after every page change.
+ * Everywhere: remembers folders opened or closed by hand (localStorage), re-applied
+ * after each page change. Runs once (Quartz swaps pages without re-running scripts).
+ */
 export const NAV_SCRIPT = `(function () {
   if (window.__kbNav) return;
   window.__kbNav = true;
   var root = document.documentElement;
+  var KEY = "kb-folders";
+  function readState() {
+    try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; }
+  }
+  function writeState(state) {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  var applying = false;
+  function applyFolders() {
+    var state = readState();
+    applying = true;
+    document.querySelectorAll(".kb-nav details[data-folder]").forEach(function (d) {
+      // Folders holding the current page arrive open from the page itself: like Obsidian,
+      // they then stay open until closed by hand
+      if (d.hasAttribute("open")) {
+        state[d.dataset.folder] = true;
+        return;
+      }
+      if (state[d.dataset.folder] === true) d.open = true;
+    });
+    writeState(state);
+    setTimeout(function () { applying = false; }, 0);
+  }
+  document.addEventListener("toggle", function (event) {
+    var d = event.target;
+    if (applying || !d.matches || !d.matches(".kb-nav details[data-folder]")) return;
+    var state = readState();
+    state[d.dataset.folder] = d.open;
+    writeState(state);
+  }, true);
   function setOpen(open) {
     root.classList.toggle("kb-nav-open", open);
     var button = document.querySelector(".kb-nav-button");
@@ -177,5 +180,8 @@ export const NAV_SCRIPT = `(function () {
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") setOpen(false);
   });
-  document.addEventListener("nav", function () { setOpen(false); });
+  document.addEventListener("nav", function () {
+    setOpen(false);
+    applyFolders();
+  });
 })();`
