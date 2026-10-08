@@ -9,6 +9,10 @@
  *   cf-turnstile-response (added by the Turnstile widget)
  *   → checks Turnstile, then emails the message to Parzifal's inbox.
  *
+ * A failed Turnstile check answers with Turnstile's own reason codes (e.g.
+ * "invalid-input-secret", "timeout-or-duplicate"), so a failure can be diagnosed from
+ * outside. The codes are Cloudflare's standard ones and never contain the secret.
+ *
  * Secrets (Cloudflare dashboard → keir-be → Settings → Variables and Secrets).
  * They are deliberately NOT in this public repo, and no response ever echoes them:
  *   CONTACT_TO        destination inbox (must be verified in Email Routing)
@@ -43,7 +47,10 @@ interface Env {
 const LIMITS = { name: 100, reply: 200, message: 5000 }
 const EMAIL_PATTERN = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/
 
-type Outcome = { ok: true } | { ok: false; error: "invalid" | "verification" | "send" | "method" }
+type Outcome =
+  | { ok: true }
+  | { ok: false; error: "invalid" | "send" | "method" }
+  | { ok: false; error: "verification"; codes: string[] }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -87,12 +94,15 @@ async function handleContact(request: Request, env: Env): Promise<Outcome> {
     return { ok: false, error: "invalid" }
   }
 
-  const verified = await verifyTurnstile(
+  const check = await verifyTurnstile(
     field("cf-turnstile-response"),
     request.headers.get("CF-Connecting-IP"),
-    env.TURNSTILE_SECRET,
+    (env.TURNSTILE_SECRET ?? "").trim(),
   )
-  if (!verified) return { ok: false, error: "verification" }
+  if (!check.ok) {
+    console.warn("contact form: Turnstile check failed:", check.codes.join(", "))
+    return { ok: false, error: "verification", codes: check.codes }
+  }
 
   const oneLine = (s: string) => s.replace(/[\r\n]+/g, " ").slice(0, 80)
   const sender = name ? oneLine(name) : "someone"
@@ -115,8 +125,8 @@ async function handleContact(request: Request, env: Env): Promise<Outcome> {
 
   try {
     await env.CONTACT_EMAIL.send({
-      from: { email: env.CONTACT_FROM, name: "keir.be garden" },
-      to: env.CONTACT_TO,
+      from: { email: (env.CONTACT_FROM ?? "").trim(), name: "keir.be garden" },
+      to: (env.CONTACT_TO ?? "").trim(),
       subject: `keir.be: a message from ${sender}`,
       text,
       replyTo: EMAIL_PATTERN.test(reply) ? reply : undefined,
@@ -130,8 +140,15 @@ async function handleContact(request: Request, env: Env): Promise<Outcome> {
   return { ok: true }
 }
 
-async function verifyTurnstile(token: string, ip: string | null, secret: string): Promise<boolean> {
-  if (!token || !secret) return false
+// Asks Cloudflare whether the widget's token is genuine. On failure it passes on
+// Turnstile's reason codes; the two "missing-…" codes are Turnstile's names too.
+async function verifyTurnstile(
+  token: string,
+  ip: string | null,
+  secret: string,
+): Promise<{ ok: boolean; codes: string[] }> {
+  if (!secret) return { ok: false, codes: ["missing-input-secret"] }
+  if (!token) return { ok: false, codes: ["missing-input-response"] }
   const body = new URLSearchParams({ secret, response: token })
   if (ip) body.set("remoteip", ip)
   try {
@@ -139,10 +156,12 @@ async function verifyTurnstile(token: string, ip: string | null, secret: string)
       method: "POST",
       body,
     })
-    const outcome = (await res.json()) as { success?: boolean }
-    return outcome.success === true
+    const outcome = (await res.json()) as { success?: boolean; "error-codes"?: string[] }
+    if (outcome.success === true) return { ok: true, codes: [] }
+    const codes = outcome["error-codes"] ?? []
+    return { ok: false, codes: codes.length ? codes : ["unknown"] }
   } catch {
-    return false
+    return { ok: false, codes: ["siteverify-unreachable"] }
   }
 }
 
