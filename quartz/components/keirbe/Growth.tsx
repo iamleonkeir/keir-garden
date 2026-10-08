@@ -45,12 +45,12 @@ export const SHAPES: Record<Stage, string[]> = {
   ],
   // A broad crown on a trunk
   tree: ["M8 21h8", "M12 21v-5", "M8 16a4 4 0 0 1-1.5-7.7a5.5 5.5 0 0 1 11 0a4 4 0 0 1-1.5 7.7z"],
-  // Two leaves in a pot
+  // Two leaves in a pot (drawn to the same height as the others)
   houseplant: [
-    "M6.5 15h11",
-    "M7.75 15l1.25 6h6l1.25-6",
-    "M12 15c-3.6-.6-5.6-3.2-5.5-7c3.3.7 5.4 3.4 5.5 7z",
-    "M12 15c.2-4.4 2.5-7.6 6-8.5c.5 4.2-1.7 7.6-6 8.5z",
+    "M6 14h12",
+    "M7.25 14l1.5 7h6.5l1.5-7",
+    "M12 14c-4-.5-6.8-3.7-7-9c4.2.8 6.8 4.2 7 9z",
+    "M12 14c.1-5.5 2.9-9.6 7.5-11c.8 5.5-2 10-7.5 11z",
   ],
   // A pine in three tiers
   evergreen: [
