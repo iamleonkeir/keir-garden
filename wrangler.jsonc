@@ -1,12 +1,19 @@
 {
-  // Cloudflare Worker that serves the Quartz build (static files only)
+  // Cloudflare Worker for keir.be: serves the Quartz build, plus the contact form API
   "name": "keir-be",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./public",
+    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // Only /api/* runs the Worker code; everything else is served straight from ./public
+    "run_worker_first": ["/api/*"]
   },
+  // Contact form mail (Cloudflare Email Routing). The addresses are Worker secrets
+  // (CONTACT_TO, CONTACT_FROM), set in the dashboard and never written in this public repo.
+  "send_email": [{ "name": "CONTACT_EMAIL" }],
   // The site lives at keir.be only (www.keir.be is redirected to it by a Cloudflare redirect rule)
   "routes": [
     { "pattern": "keir.be", "custom_domain": true },
