@@ -13,7 +13,8 @@ import { FullSlug, resolveRelative } from "../../util/path"
  * The scale is explained on the garden's page "How this garden grows".
  *
  * Icons drawn for keir.be in the style of the header icons: a 24px grid, 1.5 stroke,
- * round ends. The seed is an acorn (there's no acorn emoji, hence 🌰 in the text).
+ * round ends, shown at 22px. The seed is an acorn (there's no acorn emoji, hence 🌰
+ * in the text).
  */
 
 const SCALE = ["seed", "sprout", "sapling", "tree"] as const
@@ -63,8 +64,8 @@ function Icon({ stage }: { stage: Stage }) {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="18"
-      height="18"
+      width="22"
+      height="22"
       fill="none"
       stroke="currentColor"
       stroke-width="1.5"
