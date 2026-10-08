@@ -6,7 +6,7 @@ tags:
 
 ## Why notes
 
-My memory is messy, so my notes are my memory. If something isn't written down, as far as I'm concerned it didn't happen. That makes tidiness less a preference than a survival skill: order on the outside so the inside can be as chaotic as it likes.
+My memory is messy, so my notes are my memory. The danger here is If something isn't written down it didn't happen or it doesn't exist. That makes tidiness less a preference than a survival skill: order on the outside so the inside can be as chaotic and expansive as it likes.
 
 ## How I work
 
@@ -21,6 +21,6 @@ Anything I do more than once gets a template, so I never have to remember a form
 
 ## Gardens versus filing cabinets
 
-My rule is to always think in links. Connect each note to what it relates to, and a good shape emerges on its own: you can see it in the graph. Folders are for finding things; links are for understanding them.
+My rule is try to always think in links. Connect each note to what it relates to, and a good shape emerges on its own: you can see it in the graph. Folders are for finding things; links are for relating them. It's the relationship between things that gives rise to emergence and is the basis for understanding.
 
 That's why this site is a garden rather than a set of tidy boxes. See [[How this garden grows]].

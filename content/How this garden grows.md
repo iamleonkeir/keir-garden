@@ -6,9 +6,9 @@ tags:
 
 Nothing here is finished, and that's on purpose.
 
-Every note sits somewhere on a scale: 🌰 🌱 🌿 🌳. At one end, a thought just dropped. At the other, something that's put down roots. Most of the garden is somewhere in between, and notes move along as I tend them.
+Every note sits somewhere on a scale: 🌰 🌱 🌿 🌳. At one end, a thought just dropped. At the other, something that's put down roots. Most of the garden is somewhere in between, and notes move along as I tend them. 
 
-🪴 Some notes don't belong on the scale at all. Like the bizarre houseplant Aunty Em once bought your mother, which you somehow ended up with. I have a lot of thoughts like that.
+🪴 Some notes don't belong on the scale at all. Like the bizarre houseplant Dad's Aunty Em once bought your mother, which you somehow ended up with. I have a lot of thoughts like that.
 
 🌲 The evergreens aren't mine. They're the old trees I wander among: the ideas of people like Alan Watts and the Dalai Lama, Alice Bailey and Aleister Crowley or Terence McKenna and Timothy Leary.
 

@@ -21,7 +21,6 @@ They're joined by a private network, so they can talk to each other from anywher
 
 ## Lessons
 
-- **"It works" isn't "it survives a reboot."** Prove it by rebooting.
-- **Update the system but not the wifi driver, and the wifi dies on the next boot.** Then there's no wifi to download the fix. Keep a way back.
-- **Check that the encryption is really on.** An installer screen can look identical either way.
+- **"It works" isn't "it survives a reboot."** Prove it by rebooting!
+- **Update the system but not the wifi driver, and the wifi dies on the next boot.** Then there's no wifi to download the fix. Keep a way back!
 - **Patience is a strategy.** Free cloud servers are scarce; mine came from a script that kept asking, thousands of times over, until one was free.

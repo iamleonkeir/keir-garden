@@ -6,9 +6,10 @@ tags:
 
 ## Working with AI
 
-I work with AI as a collaborator, not an oracle. My main one is Claude, whom I call **Dude**: partly The Dude, partly what "claude" turns into if you squint at the "cl" and see a "d".
+I work with AI as a collaborator, not an oracle. My main one is Claude, who I call **Dude**: partly The Dude from Big Lobowski, partly what "claude" turns into if you mess with it:
+Squint at the "cl" and see a "d". rearrange the letters and claude is `a  dude` 
 
-Dude does a lot of the heavy lifting: building, checking, writing things down. I bring the direction, the taste and the final say. The best results come from treating it like working with a very capable colleague who needs a good brief and sometimes needs telling no.
+Dude does a lot of the heavy lifting: building, checking, writing things down. I bring the direction, the flavour and the final say. I get the best results by treating it like working with a very capable colleague who needs a good brief and sometimes needs telling no!
 
 ## Agents
 
@@ -18,6 +19,6 @@ They share one memory: my notes. Everything gets written down, so nothing depend
 
 ## What it's changed
 
-I can now build things I'd only have imagined before: a course platform, an audio library, this garden. Not every experiment survives; some get shelved, some get switched off. That's part of it.
+I can now build things I'd only have imagined before: a course platform, a bespoke audio player, an esoteric library ... this garden! Not every experiment survives; some get shelved, some get switched off. That's part of it. Some become something else entirely!
 
 See [[This garden]] for one example, and [[Thinking in notes]] for why the writing-down matters so much.
