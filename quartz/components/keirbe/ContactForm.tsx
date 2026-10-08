@@ -7,8 +7,9 @@
  * time (e.g. Cloudflare's always-pass test key for local testing).
  */
 
-// Cloudflare's documented always-pass TEST site key, until the real one is created.
-const TURNSTILE_SITE_KEY = process.env.KB_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA"
+// The "keir.be contact" Turnstile widget (Managed mode, hostname keir.be). Local testing:
+// KB_TURNSTILE_SITE_KEY=1x00000000000000000000AA (Cloudflare's always-pass test key).
+const TURNSTILE_SITE_KEY = process.env.KB_TURNSTILE_SITE_KEY ?? "0x4AAAAAAFRXjfT4Ypr33uKa"
 
 export function ContactForm() {
   return (
