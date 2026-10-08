@@ -101,6 +101,9 @@ export const KeirbeFrame: PageFrame = {
     const { sections, pages } = buildTabs(componentData.allFiles)
     const [Centre, ...Actions] = header
     const showContactForm = componentData.fileData.frontmatter?.["contact-form"] === true
+    // Only ever seen on the local preview: keir.be's build leaves drafts out
+    const draft = componentData.fileData.frontmatter?.draft
+    const isDraft = draft === true || draft === "true"
 
     const renderTab = (tab: Tab) => {
       const active = tab.folder ? slug.startsWith(tab.key + "/") : slug === tab.slug
@@ -158,6 +161,7 @@ export const KeirbeFrame: PageFrame = {
         </div>
         <div class="center">
           <div class="page-header">
+            {isDraft && <p class="kb-draft-note">Draft: on your preview only, not on keir.be</p>}
             <div class="popover-hint">
               {beforeBody.map((BodyComponent) => (
                 <BodyComponent {...componentData} />

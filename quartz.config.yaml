@@ -10,6 +10,7 @@ configuration:
   ignorePatterns:
     - private
     - templates
+    - Templates # the garden vault's Obsidian templates (matching is case-sensitive)
     - .obsidian
   theme:
     # keir.be design (modelled on Mintlify "Sequoia"). Fonts are self-hosted:

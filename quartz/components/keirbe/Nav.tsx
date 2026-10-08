@@ -23,8 +23,12 @@ interface NavNode {
   title: string
   slug?: FullSlug // a page, or a folder's own index page
   folder: boolean
+  draft?: boolean // draft box ticked: only the local preview lists it
   children: NavNode[]
 }
+
+const isDraft = (file: QuartzPluginData) =>
+  file.frontmatter?.draft === true || file.frontmatter?.draft === "true"
 
 const byTitle = (a: NavNode, b: NavNode) =>
   a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: "base" })
@@ -59,12 +63,14 @@ function buildTree(allFiles: QuartzPluginData[]): NavNode {
     if (last === "index") {
       parent.slug = slug as FullSlug
       if (file.frontmatter?.title) parent.title = file.frontmatter.title
+      parent.draft = isDraft(file)
     } else {
       parent.children.push({
         key: slug,
         title: file.frontmatter?.title ?? fallbackTitle(last),
         slug: slug as FullSlug,
         folder: false,
+        draft: isDraft(file),
         children: [],
       })
     }
@@ -94,10 +100,11 @@ export function KeirbeNav({ allFiles, slug }: { allFiles: QuartzPluginData[]; sl
       {nodes.map((node) => {
         if (!node.folder) {
           const active = node.slug === slug
+          const cls = ["kb-tree-item", active && "active", node.draft && "kb-tree-draft"]
           return (
             <li>
               <a
-                class={active ? "kb-tree-item active" : "kb-tree-item"}
+                class={cls.filter(Boolean).join(" ")}
                 href={resolveRelative(slug, node.slug!)}
                 aria-current={active ? "page" : undefined}
               >
@@ -111,7 +118,11 @@ export function KeirbeNav({ allFiles, slug }: { allFiles: QuartzPluginData[]; sl
         return (
           <li class="kb-tree-folder">
             <details open={holdsCurrent}>
-              <summary class={here ? "kb-tree-summary active" : "kb-tree-summary"}>
+              <summary
+                class={["kb-tree-summary", here && "active", node.draft && "kb-tree-draft"]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
                 <Chevron />
                 {node.slug ? (
                   <a

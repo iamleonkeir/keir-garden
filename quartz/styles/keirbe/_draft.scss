@@ -1,0 +1,20 @@
+// keir.be drafts: notes with the draft box ticked. keir.be's build leaves them out, so
+// these marks only ever show on the local preview (started with KB_SHOW_DRAFTS=1).
+@use "../variables.scss" as *;
+
+.kb-draft-note {
+  display: inline-block;
+  margin: 0 0 0.75rem;
+  padding: 0.125rem 0.625rem;
+  border: 1px dashed var(--kb-accent);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  color: var(--kb-accent-strong);
+}
+
+// In the menu: italic and quieter, so a draft is easy to tell apart
+.kb-tree-draft {
+  font-style: italic;
+  opacity: 0.6;
+}
