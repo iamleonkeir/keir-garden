@@ -3,6 +3,7 @@ import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
 import { KeirbeNav, NAV_SCRIPT } from "./Nav"
+import { KeirbeToc, TOC_SCRIPT } from "./Toc"
 
 /**
  * keir.be page frame, modelled on Mintlify "Sequoia".
@@ -161,6 +162,7 @@ export const KeirbeFrame: PageFrame = {
           </div>
         </div>
         <div class="right sidebar">
+          <KeirbeToc fileData={componentData.fileData} />
           {right.map((BodyComponent) => (
             <BodyComponent {...componentData} />
           ))}
@@ -169,6 +171,7 @@ export const KeirbeFrame: PageFrame = {
           <FooterComponent {...componentData} />
         ))}
         <script dangerouslySetInnerHTML={{ __html: NAV_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: TOC_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: CONTACT_FORM_SCRIPT }} />
       </>
     )

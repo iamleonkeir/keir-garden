@@ -84,6 +84,20 @@ details[open] > .kb-tree-summary .kb-tree-chevron {
   transform: rotate(90deg);
 }
 
+// A folder's name is a link to its own page; the rest of the row folds it
+.kb-tree-folder-link {
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  background: none;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
 // ---------- Menu button (phones only) ----------
 .kb-nav-button {
   display: none;

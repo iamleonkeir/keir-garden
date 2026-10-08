@@ -58,21 +58,8 @@ a.tag-link,
   }
 }
 
-// ---------- Sidebars: Sequoia-style small type ----------
+// ---------- Sidebars ----------
 .sidebar {
-  // Section titles: Graph View, Table of Contents, Backlinks
-  & .graph > h3,
-  & .toc-header h3,
-  & .backlinks > h3 {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--kb-muted);
-    margin: 0;
-  }
-
-  & .toc-content,
   & .backlinks ul {
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -90,19 +77,6 @@ a.tag-link,
 
   & .backlinks li {
     margin: 0.375rem 0;
-  }
-
-  // Quartz fades entries with opacity; we use colour instead (in view = dark)
-  & .toc-content a {
-    opacity: 1;
-    color: var(--kb-muted);
-    font-weight: 500;
-
-    &:hover,
-    &.in-view {
-      opacity: 1;
-      color: var(--dark);
-    }
   }
 
   & .graph > .graph-outer {

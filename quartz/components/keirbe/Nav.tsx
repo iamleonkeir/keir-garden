@@ -9,9 +9,10 @@ import { FullSlug, resolveRelative } from "../../util/path"
  *  - Folders fold out (native <details>), with subfolders nested the same way.
  *  - Order at every level: pages first, then folders; each alphabetical by title
  *    (case-insensitive, numbers in natural order).
- *  - The folder holding the current page opens by itself; the current page is marked.
- *    Like Obsidian, open folders stay open (between pages, and across visits) until
- *    closed by hand (NAV_SCRIPT, localStorage "kb-folders").
+ *  - A folder's name links to its own page (its index.md); its chevron folds it.
+ *  - One branch open at a time: only the folders holding the current page are open,
+ *    so following links through the garden, the menu always shows where you are.
+ *    Opening another folder by hand closes the rest (NAV_SCRIPT).
  *  - Not listed: the home page (the brand links to it), folder index pages (they are
  *    the folder), tag pages, unlisted pages.
  * On phones the menu opens from the tab bar's menu button.
@@ -112,7 +113,17 @@ export function KeirbeNav({ allFiles, slug }: { allFiles: QuartzPluginData[]; sl
             <details open={holdsCurrent} data-folder={node.key}>
               <summary class={here ? "kb-tree-summary active" : "kb-tree-summary"}>
                 <Chevron />
-                <span>{node.title}</span>
+                {node.slug ? (
+                  <a
+                    class="kb-tree-folder-link"
+                    href={resolveRelative(slug, node.slug)}
+                    aria-current={here ? "page" : undefined}
+                  >
+                    {node.title}
+                  </a>
+                ) : (
+                  <span>{node.title}</span>
+                )}
               </summary>
               {renderNodes(node.children)}
             </details>
@@ -131,42 +142,20 @@ export function KeirbeNav({ allFiles, slug }: { allFiles: QuartzPluginData[]; sl
 
 /**
  * Phones: opens and closes the menu, and closes it after every page change.
- * Everywhere: remembers folders opened or closed by hand (localStorage), re-applied
- * after each page change. Runs once (Quartz swaps pages without re-running scripts).
+ * Everywhere: one branch open at a time. Opening a folder by hand closes every other
+ * open folder that isn't one of its parents. (After a page change the page itself
+ * arrives with only the current page's folders open.) Runs once.
  */
 export const NAV_SCRIPT = `(function () {
   if (window.__kbNav) return;
   window.__kbNav = true;
   var root = document.documentElement;
-  var KEY = "kb-folders";
-  function readState() {
-    try { return JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { return {}; }
-  }
-  function writeState(state) {
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
-  }
-  var applying = false;
-  function applyFolders() {
-    var state = readState();
-    applying = true;
-    document.querySelectorAll(".kb-nav details[data-folder]").forEach(function (d) {
-      // Folders holding the current page arrive open from the page itself: like Obsidian,
-      // they then stay open until closed by hand
-      if (d.hasAttribute("open")) {
-        state[d.dataset.folder] = true;
-        return;
-      }
-      if (state[d.dataset.folder] === true) d.open = true;
-    });
-    writeState(state);
-    setTimeout(function () { applying = false; }, 0);
-  }
   document.addEventListener("toggle", function (event) {
-    var d = event.target;
-    if (applying || !d.matches || !d.matches(".kb-nav details[data-folder]")) return;
-    var state = readState();
-    state[d.dataset.folder] = d.open;
-    writeState(state);
+    var opened = event.target;
+    if (!opened.matches || !opened.matches(".kb-nav details[data-folder]") || !opened.open) return;
+    document.querySelectorAll(".kb-nav details[data-folder][open]").forEach(function (d) {
+      if (d !== opened && !d.contains(opened)) d.open = false;
+    });
   }, true);
   function setOpen(open) {
     root.classList.toggle("kb-nav-open", open);
@@ -180,8 +169,5 @@ export const NAV_SCRIPT = `(function () {
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") setOpen(false);
   });
-  document.addEventListener("nav", function () {
-    setOpen(false);
-    applyFolders();
-  });
+  document.addEventListener("nav", function () { setOpen(false); });
 })();`

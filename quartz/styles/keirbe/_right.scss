@@ -1,0 +1,117 @@
+// keir.be right-hand column: graph (square), "On this page" (Toc.tsx), backlinks.
+@use "../variables.scss" as *;
+
+// Desktop: the column scrolls on its own when it's long, so its parts keep their
+// natural heights instead of squeezing each other.
+.page[data-frame="keirbe"] > #quartz-body > .sidebar.right {
+  @media all and ($desktop) {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding-bottom: 2rem;
+
+    & > * {
+      flex-shrink: 0;
+    }
+
+    // Quartz caps this list so the column fits a fixed height; ours scrolls instead
+    & .backlinks > ul.overflow {
+      max-height: none;
+    }
+  }
+
+  // Graph on top (as before), then On this page, then backlinks
+  & > .graph {
+    order: 1;
+  }
+  & > .kb-toc {
+    order: 2;
+  }
+  & > .backlinks {
+    order: 3;
+  }
+}
+
+// A square graph on desktop: shorter than Quartz's 250px at this column's width.
+// The graph plugin never draws its canvas shorter than 250px, so the canvas is
+// centred in the square and the frame crops it evenly top and bottom.
+// (A percentage margin is measured against the width, which here is the height too.)
+.sidebar.right .graph > .graph-outer {
+  @media all and ($desktop) {
+    height: auto;
+    aspect-ratio: 1 / 1;
+
+    & > .graph-container {
+      height: 250px;
+      margin-top: calc((100% - 250px) / 2);
+    }
+  }
+}
+
+// One quiet heading style for the whole column, as Sequoia's "On this page"
+.kb-toc-title,
+.sidebar .graph > h3,
+.sidebar .backlinks > h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--kb-muted);
+}
+
+// ---------- On this page ----------
+// Always open (no collapsing); the section being read is marked in olive.
+.kb-toc {
+  @media all and not ($desktop) {
+    display: none; // as Quartz does: no contents panel on tablets and phones
+  }
+
+  & ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--kb-border-strong);
+  }
+
+  & li {
+    margin: 0;
+  }
+
+  & a {
+    display: block;
+    margin-left: -1px;
+    padding: 0.25rem 0 0.25rem 0.625rem;
+    border-left: 1px solid transparent;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    color: var(--darkgray);
+    background: none;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+
+    &:hover {
+      color: var(--dark);
+    }
+
+    &.active {
+      color: var(--kb-accent-strong);
+      border-left-color: var(--kb-accent);
+    }
+  }
+
+  // Subheadings step in
+  & .depth-1 a {
+    padding-left: 1.375rem;
+  }
+  & .depth-2 a {
+    padding-left: 2.125rem;
+  }
+  & .depth-3 a,
+  & .depth-4 a,
+  & .depth-5 a {
+    padding-left: 2.875rem;
+  }
+}

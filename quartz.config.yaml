@@ -270,18 +270,23 @@ layout:
         right: []
     content:
       template: keirbe # keir.be frame (two-tone header), registered in quartz.ts
+      exclude:
+        # exclude takes the plugin's full source, as listed under plugins above
+        - "@quartz-community/table-of-contents" # the keir.be frame draws "On this page" itself (Toc.tsx)
     folder:
       template: keirbe
       exclude:
-        - reader-mode
+        - "@quartz-community/reader-mode"
       positions:
         right: []
     tag:
       template: keirbe
       exclude:
-        - reader-mode
+        - "@quartz-community/reader-mode"
       positions:
         right: []
     canvas: {}
     bases:
       template: keirbe
+      exclude:
+        - "@quartz-community/table-of-contents"
