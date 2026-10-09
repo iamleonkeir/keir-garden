@@ -1,5 +1,5 @@
 ---
-growth: seed
+growth: acorn
 tags: []
 draft: true
 ---

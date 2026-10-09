@@ -24,4 +24,4 @@ There's no right order to read things in. A few ways to wander:
 - **Growth:** click a growth icon beside a note's date to see every note at that stage.
 - **Tags:** click a note's tag to see everything else on that topic.
 
-%% Growth key (the `growth` property, one value per note): seed = 🌰, seedling = 🌱, sapling = 🌿, tree = 🌳, plus houseplant = 🪴 and evergreen = 🌲. On the site these emoji are drawn as the garden's own icons, with 🌰 as an acorn. %%
+%% Growth key (the `growth` property, one value per note): acorn = 🌰, seedling = 🌱, sapling = 🌿, oak = 🌳, plus plant = 🪴 and evergreen = 🌲. On the site these emoji are drawn as the garden's own icons, 🌰 drawn as an acorn. %%
