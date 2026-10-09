@@ -5,7 +5,7 @@ import { FullSlug, resolveRelative } from "../../util/path"
  * keir.be growth row: where a note sits on the garden's scale, drawn at the end of its
  * date line by KeirbeFrame (styles: quartz/styles/keirbe/_growth.scss).
  *
- *  - The stage is the note's `growth` property: seed 🌰 → seedling 🌱 → sapling 🌿 → tree 🌳.
+ *  - The stage is the note's `growth` property: acorn 🌰 → seedling 🌱 → sapling 🌿 → oak 🌳.
  *    The whole scale is shown, with the note's own stage lit.
  *  - Off the scale, a houseplant 🪴 or evergreen 🌲 note shows just its own icon.
  *  - Notes without a stage (Contact, folder lists) show nothing.
@@ -14,17 +14,17 @@ import { FullSlug, resolveRelative } from "../../util/path"
  * The scale is explained on the garden's page "How this garden grows".
  *
  * Icons drawn for keir.be in the style of the header icons: a 24px grid, 1.5 stroke,
- * round ends, shown at 22px. The seed is an acorn (there's no acorn emoji, hence 🌰
+ * round ends, shown at 22px. (There's no acorn emoji, hence the chestnut 🌰
  * in the text).
  */
 
-const SCALE = ["seed", "seedling", "sapling", "tree"] as const
+const SCALE = ["acorn", "seedling", "sapling", "oak"] as const
 const OFF_SCALE = ["houseplant", "evergreen"] as const
 export type Stage = (typeof SCALE)[number] | (typeof OFF_SCALE)[number]
 
 export const SHAPES: Record<Stage, string[]> = {
   // An acorn: stalk, cap, nut
-  seed: [
+  acorn: [
     "M12 4.75c0-1.25.75-2.25 2-2.75",
     "M5 11c0-3.45 3.13-6.25 7-6.25s7 2.8 7 6.25z",
     "M6.5 11c0 5.2 2.4 8.9 5.5 10.25c3.1-1.35 5.5-5.05 5.5-10.25",
@@ -44,8 +44,8 @@ export const SHAPES: Record<Stage, string[]> = {
     "M12 13c0-2 2.1-3.5 5-3.5c0 2-2.1 3.5-5 3.5z",
     "M12 9c-2.6 0-4.5-1.3-4.5-3c2.6 0 4.5 1.3 4.5 3z",
   ],
-  // A broad crown on a trunk
-  tree: ["M8 21h8", "M12 21v-5", "M8 16a4 4 0 0 1-1.5-7.7a5.5 5.5 0 0 1 11 0a4 4 0 0 1-1.5 7.7z"],
+  // An oak: a broad crown on a trunk
+  oak: ["M8 21h8", "M12 21v-5", "M8 16a4 4 0 0 1-1.5-7.7a5.5 5.5 0 0 1 11 0a4 4 0 0 1-1.5 7.7z"],
   // Two leaves in a pot (drawn to the same height as the others)
   houseplant: [
     "M6 14h12",

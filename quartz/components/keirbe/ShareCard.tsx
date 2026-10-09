@@ -10,7 +10,7 @@ import { SHAPES, Stage } from "./Growth"
  * Handed to the og-image plugin in quartz.ts as its `imageStructure`.
  */
 
-const SCALE: Stage[] = ["seed", "seedling", "sapling", "tree"]
+const SCALE: Stage[] = ["acorn", "seedling", "sapling", "oak"]
 const OFF_SCALE: Stage[] = ["houseplant", "evergreen"]
 const FAINT = "#cfcfcb" // the page's faint icons (muted at 35%) on white
 

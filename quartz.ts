@@ -35,7 +35,7 @@ config.plugins.transformers.push(folderTitles)
 // files each note under a hidden tag, growth/<stage>. A new tags list is assigned, so the
 // Properties box (which keeps its own copy) never shows it; the graph and the note lists
 // leave these tags out too (quartz.config.yaml, _growth.scss).
-const STAGES = ["seed", "seedling", "sapling", "tree", "houseplant", "evergreen"]
+const STAGES = ["acorn", "seedling", "sapling", "oak", "houseplant", "evergreen"]
 const growthTags: QuartzTransformerPluginInstance = {
   name: "KeirbeGrowthTags",
   markdownPlugins: () => [

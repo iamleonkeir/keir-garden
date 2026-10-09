@@ -172,9 +172,9 @@ plugins:
     options:
       # the hidden growth/<stage> tags (added in quartz.ts) stay out of the graph
       localGraph:
-        removeTags: [growth/seed, growth/seedling, growth/sapling, growth/tree, growth/houseplant, growth/evergreen]
+        removeTags: [growth/acorn, growth/seedling, growth/sapling, growth/oak, growth/houseplant, growth/evergreen]
       globalGraph:
-        removeTags: [growth/seed, growth/seedling, growth/sapling, growth/tree, growth/houseplant, growth/evergreen]
+        removeTags: [growth/acorn, growth/seedling, growth/sapling, growth/oak, growth/houseplant, growth/evergreen]
     layout:
       position: right
       priority: 10
