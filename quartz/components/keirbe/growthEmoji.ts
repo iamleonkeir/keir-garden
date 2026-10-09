@@ -4,7 +4,7 @@ import { SHAPES, Stage } from "./Growth"
 /**
  * On the site, the garden's six growth emoji become its drawn icons wherever they appear
  * in a note's text: 🌰 acorn, 🌱 seedling, 🌿 sapling, 🌳 oak,
- * 🪴 houseplant, 🌲 evergreen. Obsidian keeps showing the emoji, and so does search.
+ * 🪴 plant, 🌲 evergreen. Obsidian keeps showing the emoji, and so does search.
  *
  * KeirbeFrame passes the page body a copy of the note's tree with the swap made; the
  * original stays untouched. Code blocks are left alone.
@@ -16,7 +16,7 @@ const EMOJI: Record<string, Stage> = {
   "🌱": "seedling",
   "🌿": "sapling",
   "🌳": "oak",
-  "🪴": "houseplant",
+  "🪴": "plant",
   "🌲": "evergreen",
 }
 const PATTERN = /(🌰|🌱|🌿|🌳|🪴|🌲)\uFE0F?/gu // \uFE0F: the emoji-style variant, if present

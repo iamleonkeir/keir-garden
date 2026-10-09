@@ -7,7 +7,8 @@ import { FullSlug, resolveRelative } from "../../util/path"
  *
  *  - The stage is the note's `growth` property: acorn 🌰 → seedling 🌱 → sapling 🌿 → oak 🌳.
  *    The whole scale is shown, with the note's own stage lit.
- *  - Off the scale, a houseplant 🪴 or evergreen 🌲 note shows just its own icon.
+ *  - Off the scale, a plant 🪴 (an idea that arrived fully formed, planted) or an
+ *    evergreen 🌲 (someone else's idea) shows just its own icon.
  *  - Notes without a stage (Contact, folder lists) show nothing.
  *  - Each icon links to its stage's page (every note at that stage) once some note has it:
  *    the hidden tag growth/<stage> that quartz.ts adds.
@@ -19,7 +20,7 @@ import { FullSlug, resolveRelative } from "../../util/path"
  */
 
 const SCALE = ["acorn", "seedling", "sapling", "oak"] as const
-const OFF_SCALE = ["houseplant", "evergreen"] as const
+const OFF_SCALE = ["plant", "evergreen"] as const
 export type Stage = (typeof SCALE)[number] | (typeof OFF_SCALE)[number]
 
 export const SHAPES: Record<Stage, string[]> = {
@@ -47,7 +48,7 @@ export const SHAPES: Record<Stage, string[]> = {
   // An oak: a broad crown on a trunk
   oak: ["M8 21h8", "M12 21v-5", "M8 16a4 4 0 0 1-1.5-7.7a5.5 5.5 0 0 1 11 0a4 4 0 0 1-1.5 7.7z"],
   // Two leaves in a pot (drawn to the same height as the others)
-  houseplant: [
+  plant: [
     "M6 14h12",
     "M7.25 14l1.5 7h6.5l1.5-7",
     "M12 14c-4-.5-6.8-3.7-7-9c4.2.8 6.8 4.2 7 9z",
