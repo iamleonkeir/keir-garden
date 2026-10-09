@@ -19,8 +19,8 @@ There's no right order to read things in. A few ways to wander:
 - **Follow the links.** Hover over one to preview the note without leaving the page.
 - **The graph** shows how the note you're on connects to the rest. Open it out to see the whole garden at once.
 - **Search** from the search box, or with ⌘K (Ctrl K on Windows).
-- **The explorer** lists everything by folder, if you'd rather browse.
-- **Backlinks** show which notes point to the one you're reading. Often the most interesting way in.
+- **The left menu** lists everything by folder, if you'd rather browse.
+- **Backlinks** show which notes point to the one you're reading. Often the most interesting way forward.
 - **Growth:** click a growth icon beside a note's date to see every note at that stage.
 - **Tags:** click a note's tag to see everything else on that topic.
 

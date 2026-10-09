@@ -1,5 +1,5 @@
 ---
-title: The 24 books
+title: The 24 books of Esoteric Philosophy
 growth: evergreen
 draft: false
 ---
