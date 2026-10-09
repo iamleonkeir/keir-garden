@@ -4,6 +4,7 @@ import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
 import { AcornMark } from "./Acorn"
+import { KeirbeFooter } from "./Footer"
 import { KeirbeGrowth, SHAPES, Stage } from "./Growth"
 import { withGrowthIcons } from "./growthEmoji"
 import { KeirbeNav, NAV_SCRIPT } from "./Nav"
@@ -115,7 +116,6 @@ export const KeirbeFrame: PageFrame = {
     afterBody,
     left,
     right,
-    footer,
   }: PageFrameProps) {
     const slug = componentData.fileData.slug as FullSlug
     const { sections, pages } = buildTabs(componentData.allFiles)
@@ -209,9 +209,7 @@ export const KeirbeFrame: PageFrame = {
             <BodyComponent {...componentData} />
           ))}
         </div>
-        {footer.map((FooterComponent) => (
-          <FooterComponent {...componentData} />
-        ))}
+        <KeirbeFooter />
         <script dangerouslySetInnerHTML={{ __html: NAV_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: TOC_SCRIPT }} />
         <script dangerouslySetInnerHTML={{ __html: CONTACT_FORM_SCRIPT }} />

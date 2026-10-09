@@ -233,7 +233,7 @@ plugins:
       position: afterBody
       priority: 10
   - source: "@quartz-community/footer"
-    enabled: true
+    enabled: false # the keir.be frame draws its own footer (Footer.tsx), crediting Quartz and Obsidian
     options:
       links: {}
     layout:
