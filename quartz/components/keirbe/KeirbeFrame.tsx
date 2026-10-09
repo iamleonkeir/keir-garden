@@ -4,6 +4,7 @@ import { QuartzPluginData } from "../../plugins/vfile"
 import { FullSlug, pathToRoot, resolveRelative } from "../../util/path"
 import { CONTACT_FORM_SCRIPT, ContactForm } from "./ContactForm"
 import { AcornMark } from "./Acorn"
+import { KeirbeFolderCards } from "./FolderCards"
 import { KeirbeFooter } from "./Footer"
 import { KeirbeGrowth, SHAPES, Stage } from "./Growth"
 import { withGrowthIcons } from "./growthEmoji"
@@ -195,6 +196,7 @@ export const KeirbeFrame: PageFrame = {
             </div>
           </div>
           <Content {...componentData} tree={withGrowthIcons(componentData.tree as Root)} />
+          <KeirbeFolderCards fileData={componentData.fileData} allFiles={componentData.allFiles} />
           {showContactForm && <ContactForm />}
           <hr />
           <div class="page-footer">
