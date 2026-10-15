@@ -11,7 +11,7 @@ draft: false
 
 Awakening Your Light Body is the foundation course of Orin and DaBen's light body work, channelled by Sanaya Roman and Duane Packer. It's six parts of guided audio journeys, each with written lessons, that gently open and strengthen your energy.
 
-I share it as a sponsor. The original words and recordings are theirs and stay as they made them; what I've added is a safe space in which aspirants can be gently guided along their hourney. The course comes in three modules of two parts each, with time between them for practice and integration, and everything a learner needs is in one place: the journeys, the lessons, and a quiet record of how far you've come. It's self-paced, but prompts. It gently guides rather than dictates.
+I share it as a sponsor. The original words and recordings are theirs and stay as they made them; what I've added is a safe space in which aspirants can be gently guided along their journey. The course comes in three modules of two parts each, with time between them for practice and integration, and everything a learner needs is in one place: the journeys, the lessons, and a quiet record of how far you've come. It's self-paced, but prompts. It gently guides rather than dictates.
 
 ## Who it's for
 

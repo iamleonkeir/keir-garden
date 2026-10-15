@@ -4,13 +4,17 @@ growth: evergreen
 draft: false
 ---
 
-Alice A. Bailey (1880–1949) wrote 24 books on the inner side of life: the soul, meditation, the seven rays, healing, initiation, and where humanity is heading. Most of them, she said, were written with a Tibetan teacher, Djwhal Khul, whose words she took down telepathically. The rest are her own.
+Alice A. Bailey (1880–1949) wrote 24 books on the inner side of life: the soul, meditation, the seven rays, healing, initiation, and where humanity is heading. Most of them, it is said, were written with a Tibetan teacher, Djwhal Khul, whose words she took down telepathically. The rest are her own.
 
 They're slow reading. Long sentences, unfamiliar terms, and ideas that only fall into place three books later. I take them a few pages at a time and let them settle.
 
-## How I read them
+## How I study them
 
-I've built myself a searchable study library of all 24, so I can follow an idea from one book into the others and back.
+I've built myself a searchable study library of all 24, so I can follow an idea from one book into the others and back. The 24 books cite a total of over 200 works by other authors which I am currently attempting to source and link directly into a vault of what I hope will eventually become a full on esoteric library. Linking of arguably the most important of the referenced works, those of Madame Helena Petrovna Blavatsky, is now all but done. Once complete it is my hope that this will be something I can gift back to the community of light workers at large.
+
+I've also started to build up a library of the available audiobooks. I have 12 at the moment so 50%, and for those that don't have official versions yet I've also built an audio reader app that that uses AI to read aloud the page you are currently on.
+
+Last, but definitely not least, I have a full set of the hard bound books that I rarely read but reference often. They sit on a side-table that is around the height of my head when I'm in bed in the hope that the wisdom and intel will somehow magically seep into my slumbering brain. They were written down telepathically so why not read yes/no?!
 
 %% More on how you study them? Reading, listening, cross-referencing. Which book changed the most for you, and where would you tell someone new to start? %%
 
