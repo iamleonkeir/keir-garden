@@ -1,4 +1,5 @@
 import path from "path"
+import { h } from "preact"
 import { loadQuartzConfig, loadQuartzLayout } from "./quartz/plugins/loader/config-loader"
 import { frameRegistry } from "./quartz/components/frames/registry"
 import { KeirbeFrame } from "./quartz/components/keirbe/KeirbeFrame"
@@ -106,6 +107,20 @@ config.plugins.transformers.push(descriptions)
 config.plugins.emitters = config.plugins.emitters.map((emitter) =>
   emitter.name === "CustomOgImages" ? CustomOgImages({ imageStructure: shareCard }) : emitter,
 )
+
+// keir.be: the acorn tab icon under a new address. Browsers (Safari above all) keep a tab
+// icon by its address for months, so visitors from before the acorn still saw Quartz's.
+// A new address makes them fetch it again; bump ?v= whenever icon.png changes.
+const acornIcon: QuartzTransformerPluginInstance = {
+  name: "KeirbeAcornIcon",
+  externalResources: () => ({
+    additionalHead: [
+      h("link", { rel: "icon", type: "image/png", sizes: "256x256", href: "/static/icon.png?v=2" }),
+      h("link", { rel: "apple-touch-icon", href: "/static/icon.png?v=2" }),
+    ],
+  }),
+}
+config.plugins.transformers.push(acornIcon)
 
 export default config
 export const layout = await loadQuartzLayout()
